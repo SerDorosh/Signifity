@@ -6,6 +6,7 @@ const ProgressPanel = styled.div`
   height: 36px;
   border-radius: 12px;
   padding: 4px;
+  box-sizing: border-box;
 `;
 
 const getWidth = (percent: number) => {
@@ -34,6 +35,11 @@ const ProgressBlock = styled.div`
     isDone ? theme.colors.black : theme.colors.primaryColor};
   color: ${({ theme }) => theme.colors.white};
   border-radius: 8px;
+  font-family: ${({ theme }) => theme.fonts.Roboto};
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
   box-sizing: border-box;
 `;
 
