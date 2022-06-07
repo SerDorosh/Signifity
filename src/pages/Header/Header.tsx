@@ -1,4 +1,5 @@
 import styled, { DefaultTheme } from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ const MenuWrapper = styled.div`
   display: flex;
 `;
 
-const MenuItems = styled.div`
+const MenuItems = styled(NavLink)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,8 +41,12 @@ const MenuItems = styled.div`
   color: ${({ theme }) => theme.colors.lightBlack};
   border-bottom: 2px solid ${({ theme }) => theme.colors.none};
   box-sizing: border-box;
+  text-decoration: none;
   cursor: pointer;
   :hover {
+    color: ${({ theme }) => theme.colors.primaryColor};
+  }
+  &.active {
     color: ${({ theme }) => theme.colors.primaryColor};
     border-bottom: 2px solid ${({ theme }) => theme.colors.primaryColor};
   }
@@ -86,10 +91,10 @@ const Header = () => {
     <HeaderWrapper>
       <Logo>Logo</Logo>
       <MenuWrapper>
-        <MenuItems>Main</MenuItems>
-        <MenuItems>Missions</MenuItems>
-        <MenuItems>NFT</MenuItems>
-        <MenuItems>About</MenuItems>
+        <MenuItems to={"/"}>Main</MenuItems>
+        <MenuItems to={"/missions"}>Missions</MenuItems>
+        <MenuItems to={"/nft"}>NFT</MenuItems>
+        <MenuItems to={"/about"}>About</MenuItems>
       </MenuWrapper>
       <AccountBlock>
         <Balance>9.9999 ETH</Balance>
