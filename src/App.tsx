@@ -5,6 +5,7 @@ import { theme } from "./theme";
 import "./assets/fonts/Roboto.css";
 import Footer from "./pages/Footer/Footer";
 import MissionPage from "./pages/MissionPage/MissionPage";
+import MainPage from "./pages/MainPage/MainPage";
 
 const Content = styled.div`
   display: flex;
@@ -21,6 +22,7 @@ function App() {
       <Header />
       <Content>
         <Routes>
+          <Route path="/" element={<MainPage />} />
           <Route path="/missions" element={<MissionPage />} />
         </Routes>
       </Content>
