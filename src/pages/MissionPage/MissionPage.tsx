@@ -1,11 +1,14 @@
 import styled, { DefaultTheme } from "styled-components";
 import AvatarList from "../../components/AvatarList/AvatarList";
 import CelebrityCard from "../../components/CelebrityCard/CelebrityCard";
+import ButtonBlock from "../../components/MissionsPanel/ButtonBlock";
+import InfoBlock from "../../components/MissionsPanel/InfoBlock";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import Timer from "../../components/Timer/Timer";
 import { Flex } from "../../styled/Flex";
 import Layout from "../../styled/Layout";
 import { PrimaryButton } from "../../styled/PrimaryButton";
+import AboutMission from "./AboutMission";
 
 const BackgroundBlock = styled.div`
   width: 100%;
@@ -23,6 +26,7 @@ const BackgroundBlock = styled.div`
 `;
 
 const Content = styled(Layout)`
+  position: relative;
   max-width: 1440px;
 `;
 
@@ -67,8 +71,29 @@ const GoalBlock = styled.div`
 `;
 
 const PageParts = styled.div`
+  position: relative;
   display: grid;
   grid-template-columns: 2fr 1fr;
+`;
+
+const PanelBetweenParts = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: -72px;
+  right: 0;
+  left: 0;
+  transform: translate(0, -50%);
+`;
+
+const LeftPart = styled.div`
+  max-width: 800px;
+`;
+const RightPart = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const MissionPage = () => {
@@ -93,6 +118,28 @@ const MissionPage = () => {
         "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
       social: ["@instagram", "@tiktok", "@youtube", "@facebook"],
     },
+    aboutMission: {
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      title: "What is this mission about?",
+      funds: [
+        {
+          id: 1,
+          name: "Fund Name",
+          title: "Fund",
+        },
+        {
+          id: 2,
+          name: "Fund Name",
+          title: "Fund",
+        },
+        {
+          id: 3,
+          name: "Fund Name",
+          title: "Fund",
+        },
+      ],
+    },
   };
 
   const {
@@ -103,6 +150,7 @@ const MissionPage = () => {
     currentValue,
     currency,
     celebrity,
+    aboutMission,
   } = MockData;
 
   return (
@@ -128,18 +176,25 @@ const MissionPage = () => {
         </Content>
       </BackgroundBlock>
       <Content>
+        <PanelBetweenParts>
+          <InfoBlock />
+          <ButtonBlock />
+        </PanelBetweenParts>
         <PageParts>
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum
-            porro corrupti illum quo blanditiis voluptatem ea inventore
-            consequatur nam reprehenderit quia nostrum quae, impedit, facere
-            explicabo quaerat aperiam animi natus?
-          </div>
-          <CelebrityCard
-            avatar={celebrity.avatar}
-            name={celebrity.name}
-            social={celebrity.social}
-          />
+          <LeftPart>
+            <AboutMission
+              title={aboutMission.title}
+              description={aboutMission.description}
+              funds={aboutMission.funds}
+            />
+          </LeftPart>
+          <RightPart>
+            <CelebrityCard
+              avatar={celebrity.avatar}
+              name={celebrity.name}
+              social={celebrity.social}
+            />
+          </RightPart>
         </PageParts>
       </Content>
     </>

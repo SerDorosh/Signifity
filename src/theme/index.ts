@@ -14,6 +14,7 @@ const colors = {
   gray: "#F4F4F4",
   darkGray: "#454545",
   lightBlack: "rgba(0, 0, 0, 0.6)",
+  opacityBlack: "rgba(0, 0, 0, 0.04)",
   primaryColor: "#6200EE",
   secondaryPrimary: "#F2E7FE",
   none: "rgba(0, 0, 0, 0)",
