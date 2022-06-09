@@ -21,6 +21,9 @@ const FirstProjectImage = styled.div`
   width: ${({ size }: ImageProps) => size};
   height: ${({ size }: ImageProps) => size};
   background-image: url(${(props: ImageProps) => props.image});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   border: 4px solid ${({ theme }) => theme.colors.white};
   border-radius: 50%;
 `;

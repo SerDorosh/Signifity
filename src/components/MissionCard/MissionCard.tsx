@@ -1,6 +1,7 @@
 import styled, { DefaultTheme } from "styled-components";
+import { Flex } from "../../styled/Flex";
 import { PrimaryButton } from "../../styled/PrimaryButton";
-import DoubleImage from "../DoubleImage/DoubleImage";
+import AvatarList from "../AvatarList/AvatarList";
 import ProgressBar from "../ProgressBar/ProgressBar";
 
 type MissionsProps = {
@@ -9,7 +10,7 @@ type MissionsProps = {
   buttonStatus: string;
   goal: number;
   currentProgress: number;
-  image: string;
+  image: string[];
   size: string;
   theme?: DefaultTheme;
 };
@@ -18,9 +19,8 @@ type ImageProps = {
 };
 
 const CardWrapper = styled.div`
-  margin: 10px;
   width: ${(props: { size: string | undefined }) =>
-    props.size === "small" ? "420px" : "600px"};
+    props.size === "small" ? "430px" : "660px"};
   height: ${(props: { size: string | undefined }) =>
     props.size === "small" ? "342px" : "550px"};
   background: ${({ theme }) => theme.colors.gray};
@@ -28,14 +28,6 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`;
-const TopWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 20px;
-`;
-const ImageWrapper = styled.div`
-  display: flex;
 `;
 export const FirstProjectImage = styled.div`
   position: relative;
@@ -60,11 +52,7 @@ const TopText = styled.p`
   letter-spacing: 0.1px;
   color: ${({ theme }) => theme.colors.black};
 `;
-const BottomWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 20px;
-`;
+
 const BottomTitle = styled.p`
   font-family: ${({ theme }) => theme.fonts.Roboto};
   font-style: normal;
@@ -81,13 +69,14 @@ const BottomSubtitle = styled.span`
   color: ${({ theme }) => theme.colors.lightBlack};
   margin: 10px 0 15px;
 `;
-const BottomInputWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 const MissionButton = styled(PrimaryButton)`
   height: 28px;
   font-size: 14px;
+`;
+const DoneButton = styled(PrimaryButton)`
+  background: ${({ theme }) => theme.colors.black};
+  font-size: 14px;
+  height: 28px;
 `;
 export default function MissionCard({
   missionName,
@@ -100,18 +89,27 @@ export default function MissionCard({
 }: MissionsProps) {
   return (
     <CardWrapper size={size}>
-      <TopWrapper>
-        <DoubleImage firstImage={image} secondImage={image} size="56px" side="left" />
+      <Flex justifyContent="space-between" margin="20px">
+        <AvatarList icons={image} howManyShowIcons={2} />
         <TopText>12 h ago</TopText>
-      </TopWrapper>
-      <BottomWrapper>
+      </Flex>
+      <Flex flexDirection="column" margin="20px">
         <BottomTitle>{missionName}</BottomTitle>
         <BottomSubtitle>By {celebrityName}</BottomSubtitle>
-        <BottomInputWrapper>
-          <MissionButton>{buttonStatus}</MissionButton>
-          <ProgressBar goal={goal} currentValue={currentProgress}></ProgressBar>
-        </BottomInputWrapper>
-      </BottomWrapper>
+        <Flex justifyContent="space-between">
+          {currentProgress !== goal ? (
+            <MissionButton>{buttonStatus}</MissionButton>
+          ) : (
+            <DoneButton>Completed</DoneButton>
+          )}
+          {currentProgress !== goal && (
+            <ProgressBar
+              goal={goal}
+              currentValue={currentProgress}
+            ></ProgressBar>
+          )}
+        </Flex>
+      </Flex>
     </CardWrapper>
   );
 }

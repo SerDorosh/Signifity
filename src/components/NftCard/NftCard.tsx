@@ -1,9 +1,19 @@
 import styled from "styled-components";
 import { Flex } from "../../styled/Flex";
+import QrCode from "../../assets/image/qrCodeNft.svg";
+import WalletNft from "../../assets/image/walletNft.svg";
 import LikeIcon from "../../assets/icons/like.svg";
 import FireIcon from "../../assets/icons/fireIconNft.svg";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import DoubleImage from "../DoubleImage/DoubleImage";
+
+type NftProps = {
+  name: string;
+  image: string[];
+  likes: number;
+  rating: number;
+  price: string;
+};
 
 const Wrapper = styled.div`
   margin-top: 10px;
@@ -13,6 +23,11 @@ const Wrapper = styled.div`
   border-radius: 12px;
 `;
 const NftImage = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 10px;
   height: 330px;
   border-radius: 12px;
   background: #f4f4f4;
@@ -36,6 +51,24 @@ const SpecialText = styled.span`
 const Text = styled(SpecialText)`
   color: ${({ theme }) => theme.colors.black};
 `;
+const QrCodeComponent = styled.div`
+  cursor: pointer;
+  width: 56px;
+  height: 56px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url(${(props: { image: string }) => props.image});
+`;
+const WalletIconComponent = styled.div`
+  cursor: pointer;
+  width: 56px;
+  height: 56px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url(${(props: { image: string }) => props.image});
+`;
 const LikeIconComponent = styled.div`
   width: 20px;
   height: 19px;
@@ -57,30 +90,39 @@ const BuyButton = styled(PrimaryButton)`
   color: ${({ theme }) => theme.colors.primaryColor};
   background: ${({ theme }) => theme.colors.secondaryPrimary};
 `;
-export default function NftCard() {
+export default function NftCard({
+  name,
+  image,
+  likes,
+  rating,
+  price,
+}: NftProps) {
   return (
     <Wrapper>
-      <NftImage></NftImage>
+      <NftImage>
+        <QrCodeComponent image={QrCode} />
+        <WalletIconComponent image={WalletNft} />
+      </NftImage>
       <Flex flexDirection="column" gap="25px">
         <Flex justifyContent="space-between" alignItems="center">
-          <Title>NFT Title</Title>
+          <Title>{name}</Title>
           <Flex alignItems="center" gap="10px">
             <LikeIconComponent image={LikeIcon} />
-            <GrayText>12</GrayText>
+            <GrayText>{likes}</GrayText>
           </Flex>
         </Flex>
         <Flex gap="10px">
           <FireIconComponent image={FireIcon} />
           <SpecialText>Legendary</SpecialText>
-          <Text> 1000/1000</Text>
+          <Text> {rating}/1000</Text>
         </Flex>
         <Flex justifyContent="space-between">
-          <BuyButton>Buy 0.009 ETH</BuyButton>
+          <BuyButton>Buy {price}</BuyButton>
           <DoubleImage
+            firstImage={image[0]}
+            secondImage={image[1]}
             size="40px"
             side="right"
-            firstImage="https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg"
-            secondImage="https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg"
           />
         </Flex>
       </Flex>
