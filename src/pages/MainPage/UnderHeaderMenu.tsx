@@ -6,11 +6,7 @@ type UnderHeaderMenuProps = {
   projects: any[];
 };
 
-const UnderHeaderBlock = styled.div`
-  margin: 40px 50px;
-  display: flex;
-  justify-content: start;
-`;
+
 const YourProjectsWindow = styled.div`
   justify-content: center;
   align-items: center;
@@ -70,45 +66,37 @@ const Ellipse = styled.div`
 
 export default function UnderHeaderMenu({ projects }: UnderHeaderMenuProps) {
   return (
-    <UnderHeaderBlock>
+    <Flex justifyContent="start" margin="50px 50px">
       <YourProjectsWindow>
         <NumberOfProjects>{projects.length}</NumberOfProjects>
         <Title> Your Project(s)</Title>
-        <SubTitle>
-          Motivation message
-        </SubTitle>
+        <SubTitle>Motivation message</SubTitle>
       </YourProjectsWindow>
       {projects.length !== 0 &&
         projects.map(
           ({ image, missionName, celebrityName, id }) =>
-            id < 3 && (
+            id < 4 && (
               <CertainProjectWindow key={id}>
                 <ImageBlock>
                   <DoubleImage
-                    firstImage={image}
-                    secondImage={image}
+                    firstImage={image[0]}
+                    secondImage={image[1]}
                     size="56px"
                     side="left"
                   />
                 </ImageBlock>
 
                 <Title>{missionName}</Title>
-                <SubTitle>
-                  {celebrityName}
-                </SubTitle>
+                <SubTitle>{celebrityName}</SubTitle>
               </CertainProjectWindow>
             )
         )}
       <Flex alignItems="center">
-        <Ellipse />
-        {projects.length < 3 && (
-          <>
-            <Ellipse />
-            <Ellipse />
-            <Ellipse />
-          </>
-        )}
+        {projects.length < 4 && <Ellipse />}
+        {projects.length < 3 && <Ellipse />}
+        {projects.length < 2 && <Ellipse />}
+        {projects.length < 1 && <Ellipse />}
       </Flex>
-    </UnderHeaderBlock>
+    </Flex>
   );
 }

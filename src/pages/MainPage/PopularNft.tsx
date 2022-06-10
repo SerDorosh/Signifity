@@ -8,7 +8,7 @@ type PopularNftProps = {
 };
 
 const Wrapper = styled.div`
-  margin: 0 50px;
+  margin: 50px 50px;
 `;
 
 const Title = styled.span`
@@ -26,12 +26,20 @@ const ShowAllButton = styled(PrimaryButton)`
 export default function PopularNft({ nfts }: PopularNftProps) {
   return (
     <Wrapper>
-      <Flex justifyContent="space-between">
-        <Title>Popular NFT</Title><ShowAllButton>Show All</ShowAllButton>
+      <Flex justifyContent="space-between" margin="10px 0">
+        <Title>Popular NFT</Title>
+        <ShowAllButton>Show All</ShowAllButton>
       </Flex>
       <Flex gap="20px">
-        {nfts.map(() => (
-          <NftCard />
+        {nfts.map(({ id, name, image, likes, rating, price }) => (
+          <NftCard
+            name={name}
+            image={image}
+            likes={likes}
+            rating={rating}
+            price={price}
+            key={id}
+          />
         ))}
       </Flex>
     </Wrapper>

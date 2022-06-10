@@ -6,7 +6,7 @@ import { PrimaryButton } from "../../styled/PrimaryButton";
 type MissionsProps = {
   missions: any[];
 };
-const Title = styled.p`
+const Title = styled.span`
   font-family: ${({ theme }) => theme.fonts.Roboto};
   font-style: normal;
   font-weight: 700;
@@ -26,11 +26,11 @@ const ShowAllButton = styled(PrimaryButton)`
 export default function MissionsBlock({ missions }: MissionsProps) {
   return (
     <MissionsBlockWrapper>
-      <Flex justifyContent="space-between">
+      <Flex justifyContent="space-between" alignItems="center" margin="10px 0">
         <Title>Missions</Title>
         <ShowAllButton>Show All</ShowAllButton>
       </Flex>
-      <Flex flexWrap={"wrap"} justifyContent="space-between">
+      <Flex flexWrap={"wrap"} justifyContent="center" gap={20}>
         {missions.map(
           (
             {
@@ -43,7 +43,7 @@ export default function MissionsBlock({ missions }: MissionsProps) {
               image,
             },
             i
-          ) => (
+          ) => ( currentProgress !== goal &&
             <MissionCard
               key={id}
               missionName={missionName}
