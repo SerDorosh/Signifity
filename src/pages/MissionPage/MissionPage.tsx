@@ -1,6 +1,7 @@
 import styled, { DefaultTheme } from "styled-components";
 import AvatarList from "../../components/AvatarList/AvatarList";
 import CelebrityCard from "../../components/CelebrityCard/CelebrityCard";
+import { JoinPanel } from "../../components/JoinPanel/JoinPanel";
 import ButtonBlock from "../../components/MissionsPanel/ButtonBlock";
 import InfoBlock from "../../components/MissionsPanel/InfoBlock";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
@@ -9,6 +10,8 @@ import { Flex } from "../../styled/Flex";
 import Layout from "../../styled/Layout";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import AboutMission from "./AboutMission";
+import DropName from "./DropName";
+import OtherMissions from "./OtherMissions";
 
 const BackgroundBlock = styled.div`
   width: 100%;
@@ -103,10 +106,6 @@ const MissionPage = () => {
       "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
       "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
-      "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
     ],
     status: "inProgres",
     goal: 10000,
@@ -140,6 +139,76 @@ const MissionPage = () => {
         },
       ],
     },
+    dropName: {
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      title: "Drop Name",
+      steps: [
+        {
+          id: 1,
+          title: "Join",
+          date: "22 Aug, 2022",
+          status: "done",
+        },
+        {
+          id: 2,
+          title: "Presale",
+          date: "22 Aug, 2022",
+          status: "active",
+        },
+        {
+          id: 3,
+          title: "Drop",
+          date: "22 Aug, 2022",
+          status: "pending",
+        },
+        {
+          id: 4,
+          title: "In process",
+          date: "22 Aug, 2022",
+          status: "pending",
+        },
+        {
+          id: 5,
+          title: "Complete",
+          date: "22 Aug, 2022",
+          status: "pending",
+        },
+      ],
+      nfts: [{ id: 1 }, { id: 2 }, { id: 3 }],
+    },
+    otherMissions: [
+      {
+        id: 0,
+        missionName: "MissionTitle1",
+        celebrityName: "Celebrity Name1",
+        image:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+        buttonStatus: "Presale",
+        goal: 100,
+        currentProgress: 10,
+      },
+      {
+        id: 1,
+        missionName: "MissionTitle2123",
+        celebrityName: "Celebrity Name2",
+        image:
+          "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        buttonStatus: "Ongoing",
+        goal: 100,
+        currentProgress: 40,
+      },
+      {
+        id: 2,
+        missionName: "MissionTitle2323",
+        celebrityName: "Celebrity Name2",
+        image:
+          "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        buttonStatus: "Drop",
+        goal: 100,
+        currentProgress: 70,
+      },
+    ],
   };
 
   const {
@@ -151,6 +220,8 @@ const MissionPage = () => {
     currency,
     celebrity,
     aboutMission,
+    dropName,
+    otherMissions,
   } = MockData;
 
   return (
@@ -187,6 +258,12 @@ const MissionPage = () => {
               description={aboutMission.description}
               funds={aboutMission.funds}
             />
+            <DropName
+              title={dropName.title}
+              description={dropName.description}
+              steps={dropName.steps}
+              nfts={dropName.nfts}
+            />
           </LeftPart>
           <RightPart>
             <CelebrityCard
@@ -196,6 +273,8 @@ const MissionPage = () => {
             />
           </RightPart>
         </PageParts>
+        <JoinPanel />
+        <OtherMissions missions={otherMissions} />
       </Content>
     </>
   );

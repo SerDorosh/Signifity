@@ -59,7 +59,7 @@ const MoreOrLessButton = styled.div`
 `;
 
 type TextCardProps = {
-  title: string;
+  title?: string;
   description: string;
   children?: React.ReactNode | React.ReactNode[];
   file?: boolean;
@@ -70,7 +70,7 @@ const TextCard = (props: TextCardProps) => {
   const { title, description, children, file } = props;
   return (
     <Card>
-      <Title>{title}</Title>
+      {title && <Title>{title}</Title>}
       {showMore ? (
         <ShortDescription>{description}</ShortDescription>
       ) : (

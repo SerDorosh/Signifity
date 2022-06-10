@@ -20,6 +20,9 @@ const FirstProjectImage = styled.div`
   left: ${({ side }: ImageProps) => (side === "right" ? "25px" : "0")};
   width: ${({ size }: ImageProps) => size};
   height: ${({ size }: ImageProps) => size};
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   background-image: url(${(props: ImageProps) => props.image});
   border: 4px solid ${({ theme }) => theme.colors.white};
   border-radius: 50%;
@@ -29,7 +32,6 @@ const SecondProjectImage = styled(FirstProjectImage)`
   height: ${({ size }: ImageProps) => size};
   background-image: url(${(props: ImageProps) => props.image});
   left: ${({ side }: ImageProps) => (side === "right" ? "0" : "-25px")};
-  
 `;
 
 export default function DoubleImage({

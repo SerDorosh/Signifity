@@ -2,8 +2,10 @@ import styled, { DefaultTheme } from "styled-components";
 
 const AvatarListWrapper = styled.div`
   position: relative;
-  width: ${(props: { howManyShowIcons: number }) =>
-    props.howManyShowIcons * 48 + 80}px;
+  width: ${(props: { howManyShowIcons: number; difference: boolean }) =>
+    props.difference
+      ? `${props.howManyShowIcons * 48 + 80}px`
+      : `${(props.howManyShowIcons - 1) * 48 + 80}px`};
   height: 80px;
 `;
 
@@ -61,7 +63,10 @@ const AvatarList = (props: AvatarListProps) => {
   const { icons, howManyShowIcons } = props;
   const difference = icons.length - howManyShowIcons;
   return (
-    <AvatarListWrapper howManyShowIcons={howManyShowIcons}>
+    <AvatarListWrapper
+      howManyShowIcons={howManyShowIcons}
+      difference={difference > 0}
+    >
       {icons.map(
         (el, i) =>
           i < howManyShowIcons && <Avatar image={el} index={i} key={i} />

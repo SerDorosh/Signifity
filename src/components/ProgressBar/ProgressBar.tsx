@@ -11,12 +11,12 @@ const ProgressPanel = styled.div`
 
 const getWidth = (percent: number) => {
   if (percent > 100) {
-    return 100;
+    return "100%";
   }
-  if (percent < 10) {
-    return 10;
+  if (percent <= 10) {
+    return "45px";
   }
-  return percent;
+  return `${percent}%`;
 };
 
 type ProgressBlockProps = {
@@ -25,7 +25,7 @@ type ProgressBlockProps = {
 };
 const ProgressBlock = styled.div`
   width: ${({ progressPercent }: ProgressBlockProps) =>
-    getWidth(progressPercent)}%;
+    getWidth(progressPercent)};
   height: 100%;
   display: flex;
   justify-content: flex-end;
