@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import styled, { DefaultTheme } from "styled-components";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 
 type TimerWrapper = {
@@ -51,7 +51,10 @@ const Timer = (props: TimerProps) => {
   }, []);
 
   return (
-    <TimerWrapper secondary={secondary}>{`${timer} ${text}`}</TimerWrapper>
+    <TimerWrapper secondary={secondary}>{`${text.replace(
+      "{timer}",
+      timer
+    )}`}</TimerWrapper>
   );
 };
 

@@ -3,9 +3,11 @@ import { Flex } from "../../styled/Flex";
 import LikeIcon from "../../assets/icons/like.svg";
 import FireIcon from "../../assets/icons/fireIconNft.svg";
 import { PrimaryButton } from "../../styled/PrimaryButton";
-import DoubleImage from "../DoubleImage/DoubleImage";
+import QrCode from "../../assets/image/qrCodeNft.svg";
+import WalletNft from "../../assets/image/walletNft.svg";
 import Connect from "../../assets/icons/connectIcon.svg";
 import TextCard from "../TextCard/TextCard";
+import Timer from "../Timer/Timer";
 
 const Wrapper = styled.div`
   display: grid;
@@ -33,6 +35,11 @@ const InfoWrapper = styled.div`
 `;
 const NftImage = styled.div`
   height: 464px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 10px;
   border-radius: 12px;
   background: #f4f4f4;
 `;
@@ -51,10 +58,6 @@ const SpecialText = styled.span`
   font-size: 16px;
   font-weight: 700;
   font-family: ${({ theme }) => theme.fonts.Roboto};
-`;
-
-const Text = styled(SpecialText)`
-  color: ${({ theme }) => theme.colors.black};
 `;
 
 const LikeIconComponent = styled.div`
@@ -77,8 +80,8 @@ const FireIconComponent = styled.div`
 
 const BuyButton = styled(PrimaryButton)`
   height: 40px;
-  color: ${({ theme }) => theme.colors.primaryColor};
-  background: ${({ theme }) => theme.colors.secondaryPrimary};
+  color: ${({ theme }) => theme.colors.white};
+  background: ${({ theme }) => theme.colors.primaryColor};
 `;
 
 const Button = styled(PrimaryButton)`
@@ -109,18 +112,66 @@ const ButtonText = styled.div`
   color: ${({ theme }) => theme.colors.black};
 `;
 
+const QrCodeComponent = styled.div`
+  cursor: pointer;
+  width: 56px;
+  height: 56px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url(${(props: { image: string }) => props.image});
+`;
+const WalletIconComponent = styled.div`
+  cursor: pointer;
+  width: 56px;
+  height: 56px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url(${(props: { image: string }) => props.image});
+`;
+
+const NotForSaleButton = styled(PrimaryButton)`
+  color: ${({ theme }) => theme.colors.white};
+  background: ${({ theme }) => theme.colors.black};
+`;
+
 type NftCardProps = {
   isBig?: boolean;
   isEven?: boolean;
   description?: string;
+  dropStatus: string;
+  date?: number;
+};
+
+const renderButton = (status: string, date?: number) => {
+  switch (status) {
+    case "dropStart":
+      return <BuyButton>Buy 0.009 ETH</BuyButton>;
+    case "dropPending":
+      return (
+        <Timer
+          secondary
+          text={"Drop sales start in {timer}"}
+          date={date ? date : 0}
+        />
+      );
+    case "notForSale":
+      return <NotForSaleButton>Not for Sale</NotForSaleButton>;
+    default:
+      return null;
+  }
 };
 
 export default function BigNftCard(props: NftCardProps) {
-  const { description, isEven } = props;
+  const { description, isEven, dropStatus, date } = props;
   return (
     <Wrapper isEven={isEven}>
       <ImageWrapper>
-        <NftImage></NftImage>
+        <NftImage>
+          <QrCodeComponent image={QrCode} />
+          <WalletIconComponent image={WalletNft} />
+        </NftImage>
       </ImageWrapper>
       <InfoWrapper>
         <Flex
@@ -147,8 +198,7 @@ export default function BigNftCard(props: NftCardProps) {
             <ButtonIcon image={Connect} />
           </Button>
         </Flex>
-
-        <BuyButton>Buy 0.009 ETH</BuyButton>
+        {renderButton(dropStatus, date)}
       </InfoWrapper>
     </Wrapper>
   );

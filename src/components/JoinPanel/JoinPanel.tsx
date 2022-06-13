@@ -43,7 +43,12 @@ const ButtonText = styled.div`
   line-height: 24px;
 `;
 
-export const JoinPanel = () => {
+type JoinPanelProps = {
+  showJoin?: boolean;
+};
+
+export const JoinPanel = (props: JoinPanelProps) => {
+  const { showJoin } = props;
   return (
     <Wrapper>
       <Button>
@@ -53,9 +58,11 @@ export const JoinPanel = () => {
         <ButtonIcon image={Bell} />
         <ButtonText>Don't miss Presale</ButtonText>
       </PrimaryButton>
-      <PrimaryButton>
-        <ButtonText>Join to the wait list</ButtonText>
-      </PrimaryButton>
+      {showJoin && (
+        <PrimaryButton>
+          <ButtonText>Join to the wait list</ButtonText>
+        </PrimaryButton>
+      )}
     </Wrapper>
   );
 };

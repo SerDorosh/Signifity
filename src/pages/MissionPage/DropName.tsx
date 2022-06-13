@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { JoinPanel } from "../../components/JoinPanel/JoinPanel";
 import BigNftCard from "../../components/NftCard/BigNftCard";
 import { Steps } from "../../components/StepsLine";
+import { Table } from "../../components/Table/Table";
 import TextCard from "../../components/TextCard/TextCard";
 import { Flex } from "../../styled/Flex";
 
@@ -23,7 +25,7 @@ type DropNameProps = {
   title: string;
   description: string;
   steps: StepProps[];
-  nfts: { id: number }[];
+  nfts: { id: number; dropStatus: string; date?: number }[];
 };
 
 const DropName = (props: DropNameProps) => {
@@ -31,12 +33,17 @@ const DropName = (props: DropNameProps) => {
   return (
     <Wrapper>
       <TextCard title={title} description={description} />
-      <Flex flexDirection="column" gap="96px">
+      <Flex flexDirection="column" gap="96px" margin="96px 0 0 0">
         {nfts.map((el, i) => (
-          <BigNftCard isEven={i % 2 != 0} />
+          <BigNftCard
+            isEven={i % 2 !== 0}
+            dropStatus={el.dropStatus}
+            date={el.date}
+          />
         ))}
       </Flex>
       <Steps steps={steps} />
+      <JoinPanel />
     </Wrapper>
   );
 };

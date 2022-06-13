@@ -34,6 +34,7 @@ const ShowAllButton = styled(PrimaryButton)`
 const MissionsGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 36px;
 `;
 
 type OtherMissionsProps = {
@@ -71,7 +72,7 @@ const OtherMissions = (props: OtherMissionsProps) => {
               currentProgress={currentProgress}
               image={image}
               size="small"
-            ></MissionCard>
+            />
           )
         )}
       </MissionsGrid>

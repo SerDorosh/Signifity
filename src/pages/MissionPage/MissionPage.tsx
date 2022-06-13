@@ -1,7 +1,6 @@
 import styled, { DefaultTheme } from "styled-components";
 import AvatarList from "../../components/AvatarList/AvatarList";
 import CelebrityCard from "../../components/CelebrityCard/CelebrityCard";
-import { JoinPanel } from "../../components/JoinPanel/JoinPanel";
 import ButtonBlock from "../../components/MissionsPanel/ButtonBlock";
 import InfoBlock from "../../components/MissionsPanel/InfoBlock";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
@@ -11,7 +10,23 @@ import Layout from "../../styled/Layout";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import AboutMission from "./AboutMission";
 import DropName from "./DropName";
+import MissionReport from "./MissionReport";
 import OtherMissions from "./OtherMissions";
+import SaleHistory from "./SaleHistory";
+import ThanksBlock from "./ThanksBlock";
+
+type StatusLabelProps = {
+  theme: DefaultTheme;
+  status: string;
+};
+
+const StatusLabel = styled(PrimaryButton)`
+  color: ${({ theme, status }: StatusLabelProps) =>
+    status === "Complete" ? theme.colors.black : theme.colors.primaryColor};
+  background: ${({ theme }) => theme.colors.white};
+  height: 32px;
+  margin-bottom: 12px;
+`;
 
 const BackgroundBlock = styled.div`
   width: 100%;
@@ -101,13 +116,13 @@ const RightPart = styled.div`
 
 const MissionPage = () => {
   const MockData = {
-    dateStart: 1654625080000,
+    dateStart: 1664625080000,
     celebrityIcons: [
       "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
       "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
     ],
-    status: "inProgres",
+    status: "Complete",
     goal: 10000,
     currentValue: 200,
     currency: "ETH",
@@ -175,15 +190,21 @@ const MissionPage = () => {
           status: "pending",
         },
       ],
-      nfts: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      nfts: [
+        { id: 1, dropStatus: "dropPending", date: 1664625080000 },
+        { id: 2, dropStatus: "dropStart" },
+        { id: 3, dropStatus: "notForSale" },
+      ],
     },
     otherMissions: [
       {
         id: 0,
         missionName: "MissionTitle1",
         celebrityName: "Celebrity Name1",
-        image:
+        image: [
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+        ],
         buttonStatus: "Presale",
         goal: 100,
         currentProgress: 10,
@@ -192,8 +213,10 @@ const MissionPage = () => {
         id: 1,
         missionName: "MissionTitle2123",
         celebrityName: "Celebrity Name2",
-        image:
-          "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        image: [
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+        ],
         buttonStatus: "Ongoing",
         goal: 100,
         currentProgress: 40,
@@ -202,13 +225,83 @@ const MissionPage = () => {
         id: 2,
         missionName: "MissionTitle2323",
         celebrityName: "Celebrity Name2",
-        image:
-          "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        image: [
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+        ],
         buttonStatus: "Drop",
         goal: 100,
         currentProgress: 70,
       },
     ],
+    tableData: [
+      {
+        id: 1,
+        nft: {
+          name: "NFT Name",
+          image:
+            "https://live.staticflickr.com/8591/16215707781_98e72548e7_b.jpg",
+        },
+        buyer: {
+          avatar:
+            "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+          name: "User Name",
+        },
+        salePrice: "9.999 ETH",
+        amount: 2,
+        dateTime: "20 Aug, 2022 00:00",
+      },
+      {
+        id: 2,
+        nft: {
+          name: "NFT Name",
+          image:
+            "https://user-dashboard.s3.us-east-2.amazonaws.com/nft-metadata/0x1a92f7381b9f03921564a437210bb9396471050c/9728.png",
+        },
+        buyer: {
+          avatar:
+            "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+          name: "User Name",
+        },
+        salePrice: "9.999 ETH",
+        amount: 2,
+        dateTime: "26 Aug, 2022 00:00",
+      },
+      {
+        id: 3,
+        nft: {
+          name: "NFT Name",
+          image:
+            "https://user-dashboard.s3.us-east-2.amazonaws.com/nft-metadata/0x1a92f7381b9f03921564a437210bb9396471050c/9728.png",
+        },
+        buyer: {
+          avatar:
+            "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+          name: "User Name",
+        },
+        salePrice: "9.999 ETH",
+        amount: 2,
+        dateTime: "24 Aug, 2022 00:00",
+      },
+      {
+        id: 4,
+        nft: {
+          name: "NFT Name",
+          image:
+            "https://user-dashboard.s3.us-east-2.amazonaws.com/nft-metadata/0x1a92f7381b9f03921564a437210bb9396471050c/9728.png",
+        },
+        buyer: {
+          avatar:
+            "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+          name: "User Name",
+        },
+        salePrice: "9.999 ETH",
+        amount: 2,
+        dateTime: "22 Aug, 2022 00:00",
+      },
+    ],
+    thanks: true,
+    missionReport: true,
   };
 
   const {
@@ -222,12 +315,18 @@ const MissionPage = () => {
     aboutMission,
     dropName,
     otherMissions,
+    tableData,
+    thanks,
+    missionReport,
   } = MockData;
 
   return (
     <>
       <BackgroundBlock>
         <Content>
+          <Flex>
+            <StatusLabel status={status}>{status}</StatusLabel>
+          </Flex>
           <MissionTitle>Mission Title</MissionTitle>
           <Flex alignItems="center" margin="16px 0 56px">
             <AvatarList icons={celebrityIcons} howManyShowIcons={2} />
@@ -236,7 +335,7 @@ const MissionPage = () => {
           {status === "pending" ? (
             <Flex alignItems="center">
               <JoinButton>Join to the wait list</JoinButton>
-              <Timer date={dateStart} text="left" />
+              <Timer date={dateStart} text="{timer} left" />
             </Flex>
           ) : (
             <Flex alignItems="center">
@@ -253,11 +352,13 @@ const MissionPage = () => {
         </PanelBetweenParts>
         <PageParts>
           <LeftPart>
+            {thanks && <ThanksBlock />}
             <AboutMission
               title={aboutMission.title}
               description={aboutMission.description}
               funds={aboutMission.funds}
             />
+            {missionReport && <MissionReport />}
             <DropName
               title={dropName.title}
               description={dropName.description}
@@ -273,7 +374,9 @@ const MissionPage = () => {
             />
           </RightPart>
         </PageParts>
-        <JoinPanel />
+      </Content>
+      <SaleHistory tableData={tableData} />
+      <Content>
         <OtherMissions missions={otherMissions} />
       </Content>
     </>

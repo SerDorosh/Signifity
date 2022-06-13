@@ -12,6 +12,7 @@ import UnderHeaderMenu from "./UnderHeaderMenu";
 import CompletedMissions from "./CompletedMissions";
 import OurPartners from "./OurPartners";
 import IntroducingSigniftyCoin from "./IntroducingSigniftyCoin";
+import Slider from "../../components/Slider/Slider";
 
 const BackgroundBlock = styled.div`
   width: 100%;
@@ -130,7 +131,6 @@ export default function MainPage() {
         "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
       ],
     },
-
   };
   const ourCelebrities = Object.values(mockOurCelebrities);
 
@@ -294,7 +294,7 @@ export default function MainPage() {
   };
   const nfts = Object.values(mockNft);
   const MockData = {
-    dateStart: 1654625080000,
+    dateStart: 164625080000,
     celebrityIcons: [
       "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
@@ -331,7 +331,7 @@ export default function MainPage() {
           {status === "pending" ? (
             <Flex alignItems="center">
               <JoinButton>Join to the wait list</JoinButton>
-              <Timer date={dateStart} text="left" />
+              <Timer date={dateStart} text="{timer} left" />
             </Flex>
           ) : (
             <Flex alignItems="center">

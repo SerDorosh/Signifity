@@ -1,9 +1,12 @@
 import styled from "styled-components";
-import { Flex } from "../../styled/Flex";
+import DoneIcon from "../../assets/icons/doneIcon.svg";
 
 const renderBackground = (status: string) => {
   if (status === "active" || status === "done") {
     return "#6200EE";
+  }
+  if (status === "complete") {
+    return "#000000";
   }
   return "rgba(0, 0, 0, 0.6);";
 };
@@ -48,6 +51,16 @@ const StepValue = styled.div`
   font-size: 12px;
   user-select: none;
 `;
+
+const StepIcon = styled.div`
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url(${(props: { image: string }) => props.image});
+  border-radius: 50%;
+`;
 const StepBorder = styled.div`
   display: flex;
   align-items: center;
@@ -59,6 +72,7 @@ const StepBorder = styled.div`
   border-radius: 50%;
   color: ${(props: { status: string }) =>
     props.status === "active" ? "#6200EE" : "rgba(0, 0, 0, 0.6)"};
+  box-sizing: border-box;
 `;
 
 const Title = styled.div`
@@ -95,9 +109,13 @@ export const Step = ({ title, date, status, position }: StepProps) => {
         <Title status={status}>{title}</Title>
         <Date status={status}>{date}</Date>
       </TextBlock>
-      <StepBorder status={status}>
-        <StepValue status={status}>{status === "done" ? "✔" : null}</StepValue>
-      </StepBorder>
+      {status === "done" ? (
+        <StepIcon image={DoneIcon} />
+      ) : (
+        <StepBorder status={status}>
+          <StepValue status={status} />
+        </StepBorder>
+      )}
     </Wrapper>
   );
 };

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 const renderBackground = (status: string) => {
-  if (status === "active") {
+  if (status === "active" || status === "done") {
     return "#6200EE";
   }
-  if (status === "done") {
-    return "#6200EE";
+  if (status === "complete") {
+    return "#000000";
   }
   return "rgba(0, 0, 0, 0.6);";
 };
