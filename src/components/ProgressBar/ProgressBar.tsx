@@ -1,12 +1,17 @@
 import styled from "styled-components";
+import { devices } from "../../constants/mediaConstants";
 
 const ProgressPanel = styled.div`
   background: ${({ theme }) => theme.colors.white};
-  width: 430px;
+  width: 100%;
   height: 36px;
   border-radius: 12px;
   padding: 4px;
   box-sizing: border-box;
+  @media ${devices.mobile} {
+    height: 12px;
+    padding: 0px;
+  }
 `;
 
 const getWidth = (percent: number) => {

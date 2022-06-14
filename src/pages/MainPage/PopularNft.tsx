@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import NftCard from "../../components/NftCard/NftCard";
+import Slider from "../../components/Slider/Slider";
 import { Flex } from "../../styled/Flex";
 import { PrimaryButton } from "../../styled/PrimaryButton";
+import { devices } from "../../constants/mediaConstants";
 
 type PopularNftProps = {
   nfts: any[];
@@ -9,39 +11,52 @@ type PopularNftProps = {
 
 const Wrapper = styled.div`
   margin: 50px 50px;
+  @media ${devices.desktop} {
+    overflow: scroll;
+  }
+  @media ${devices.tablet} {
+    margin: 30px;
+  }
 `;
 
 const Title = styled.span`
   font-family: ${({ theme }) => theme.fonts.Roboto};
   font-weight: 700;
   font-size: 34px;
+  @media ${devices.tablet} {
+    font-size: 20px;
+  }
 `;
 const ShowAllButton = styled(PrimaryButton)`
   font-size: 16px;
   height: 36px;
   color: ${({ theme }) => theme.colors.primaryColor};
   background: ${({ theme }) => theme.colors.secondaryPrimary};
+  @media ${devices.tablet} {
+    background: none;
+  }
 `;
 
 export default function PopularNft({ nfts }: PopularNftProps) {
   return (
     <Wrapper>
-      <Flex justifyContent="space-between" margin="10px 0">
+      <Flex justifyContent="space-between" alignItems="center" margin="10px 0">
         <Title>Popular NFT</Title>
         <ShowAllButton>Show All</ShowAllButton>
       </Flex>
-      <Flex gap="20px">
-        {nfts.map(({ id, name, image, likes, rating, price }) => (
+      <Slider howToShow={4}>
+        {nfts.map(({ id, name, logoNft, image, likes, rating, price }) => (
           <NftCard
             name={name}
             image={image}
+            logoNft={logoNft}
             likes={likes}
             rating={rating}
             price={price}
             key={id}
           />
         ))}
-      </Flex>
+      </Slider>
     </Wrapper>
   );
 }

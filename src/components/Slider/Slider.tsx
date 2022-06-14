@@ -37,7 +37,6 @@ width: 12px;
   background-position: center;
   background-image: url(${(props: { image: string }) => props.image});
   transform: rotate(90deg);
-  );
 `;
 const RightArrow = styled.div`
   width: 12px;

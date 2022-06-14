@@ -1,18 +1,30 @@
 import styled from "styled-components";
 import DoubleImage from "../../components/DoubleImage/DoubleImage";
 import { Flex } from "../../styled/Flex";
+import { devices } from "../../constants/mediaConstants";
 
 type UnderHeaderMenuProps = {
   projects: any[];
 };
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: start;
+  margin: 50px;
+  @media ${devices.desktop} {
+    overflow: scroll;
+    overflow-wrap: wrap;
+  }
+  @media ${devices.tablet} {
+    margin: 30px;
+  }
+`;
 
 const YourProjectsWindow = styled.div`
   justify-content: center;
   align-items: center;
-  width: 239px;
+  min-width: 239px;
   height: 80px;
-  margin: 20px;
   background: ${({ theme }) => theme.colors.gray};
   border-radius: 12px;
   display: grid;
@@ -22,6 +34,10 @@ const YourProjectsWindow = styled.div`
   grid-template-areas:
     "number title"
     "number subtitle";
+  @media ${devices.tablet} {
+    min-width: 193px;
+    height: 60px;
+  }
 `;
 
 const CertainProjectWindow = styled(YourProjectsWindow)`
@@ -35,12 +51,15 @@ const NumberOfProjects = styled.p`
   font-size: 48px;
   color: ${({ theme }) => theme.colors.primaryColor};
   grid-area: number;
+  @media ${devices.tablet} {
+    font-size: 24px;
+  }
 `;
 const ImageBlock = styled.div`
   grid-area: number;
 `;
 
-const Title = styled.p`
+const Title = styled.span`
   font-family: ${({ theme }) => theme.fonts.Roboto};
   font-style: normal;
   font-weight: 700;
@@ -48,7 +67,7 @@ const Title = styled.p`
   color: ${({ theme }) => theme.colors.black};
   grid-area: title;
 `;
-const SubTitle = styled.p`
+const SubTitle = styled.span`
   font-family: ${({ theme }) => theme.fonts.Roboto};
   font-style: normal;
   font-weight: 400;
@@ -61,42 +80,41 @@ const Ellipse = styled.div`
   height: 56px;
   border: 1px dashed rgba(0, 0, 0, 0.38);
   border-radius: 100%;
-  margin: 20px;
 `;
 
 export default function UnderHeaderMenu({ projects }: UnderHeaderMenuProps) {
   return (
-    <Flex justifyContent="start" margin="50px 50px">
+    <Wrapper>
       <YourProjectsWindow>
         <NumberOfProjects>{projects.length}</NumberOfProjects>
         <Title> Your Project(s)</Title>
         <SubTitle>Motivation message</SubTitle>
       </YourProjectsWindow>
-      {projects.length !== 0 &&
-        projects.map(
-          ({ image, missionName, celebrityName, id }) =>
-            id < 4 && (
-              <CertainProjectWindow key={id}>
-                <ImageBlock>
-                  <DoubleImage
-                    firstImage={image[0]}
-                    secondImage={image[1]}
-                    size="56px"
-                    side="left"
-                  />
-                </ImageBlock>
+      <Flex alignItems="center" margin="0 0 0 20px" gap="20px">
+        {projects.length !== 0 &&
+          projects.map(
+            ({ image, missionName, celebrityName, id }) =>
+              id < 4 && (
+                <CertainProjectWindow key={id}>
+                  <ImageBlock>
+                    <DoubleImage
+                      firstImage={image[0]}
+                      secondImage={image[1]}
+                      size="56px"
+                      side="right"
+                    />
+                  </ImageBlock>
 
-                <Title>{missionName}</Title>
-                <SubTitle>{celebrityName}</SubTitle>
-              </CertainProjectWindow>
-            )
-        )}
-      <Flex alignItems="center">
+                  <Title>{missionName}</Title>
+                  <SubTitle>{celebrityName}</SubTitle>
+                </CertainProjectWindow>
+              )
+          )}
         {projects.length < 4 && <Ellipse />}
         {projects.length < 3 && <Ellipse />}
         {projects.length < 2 && <Ellipse />}
         {projects.length < 1 && <Ellipse />}
       </Flex>
-    </Flex>
+    </Wrapper>
   );
 }
