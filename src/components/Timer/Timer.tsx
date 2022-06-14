@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 
-type TimerWrapper = {
+type TimerWrapperProps = {
   secondary?: boolean;
 };
 
-const TimerWrapper = styled(PrimaryButton)`
+const TimerWrapper = styled(PrimaryButton)<TimerWrapperProps>`
   color: ${({ theme }) => theme.appTheme.secondaryButtonTextColor};
   background: ${({ theme, secondary }) =>
     secondary ? theme.colors.secondaryButtonBackground : theme.colors.white};
@@ -44,11 +44,10 @@ const Timer = (props: TimerProps) => {
         if (howLeft <= 1000) {
           clearInterval(timerId);
         }
-        console.log(howLeft, getTimerDate(howLeft));
         setTimer(getTimerDate(howLeft));
       }, 1000);
     }
-  }, []);
+  }, [date]);
 
   return (
     <TimerWrapper secondary={secondary}>{`${text.replace(

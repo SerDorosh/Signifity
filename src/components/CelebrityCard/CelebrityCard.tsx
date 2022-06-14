@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { devices } from "../../constants/mediaConstants";
 import { Flex } from "../../styled/Flex";
 
 const Card = styled.div`
@@ -8,6 +9,9 @@ const Card = styled.div`
   justify-content: flex-start;
   width: 100%;
   height: 100%;
+  @media ${devices.tablet} {
+    width: 100vw;
+  }
 `;
 
 type AvatarProps = {
@@ -23,6 +27,10 @@ const Avatar = styled.div`
   background-image: url(${(props: AvatarProps) => props.image});
   border: 8px solid ${({ theme }) => theme.colors.primaryColor};
   border-radius: 50%;
+  @media ${devices.tablet} {
+    width: 200px;
+    height: 200px;
+  }
 `;
 
 const CelebrityName = styled.div`
@@ -48,6 +56,19 @@ const SocialTitle = styled.div`
   color: ${({ theme }) => theme.colors.black};
 `;
 
+const SocialBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0 0 0;
+  @media ${devices.tablet} {
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+`;
+
 type CelebrityCardProps = {
   avatar: string;
   name: string;
@@ -60,16 +81,11 @@ const CelebrityCard = (props: CelebrityCardProps) => {
     <Card>
       <Avatar image={avatar} />
       <CelebrityName>{name}</CelebrityName>
-      <Flex
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        margin="16px 0 0 0"
-      >
+      <SocialBlock>
         {social.map((el, i) => (
           <SocialTitle key={i}>{el}</SocialTitle>
         ))}
-      </Flex>
+      </SocialBlock>
     </Card>
   );
 };

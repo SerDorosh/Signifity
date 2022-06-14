@@ -12,7 +12,6 @@ import UnderHeaderMenu from "./UnderHeaderMenu";
 import CompletedMissions from "./CompletedMissions";
 import OurPartners from "./OurPartners";
 import IntroducingSigniftyCoin from "./IntroducingSigniftyCoin";
-import Slider from "../../components/Slider/Slider";
 
 const BackgroundBlock = styled.div`
   width: 100%;

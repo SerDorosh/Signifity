@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { JoinPanel } from "../../components/JoinPanel/JoinPanel";
 import BigNftCard from "../../components/NftCard/BigNftCard";
 import { Steps } from "../../components/StepsLine";
-import { Table } from "../../components/Table/Table";
 import TextCard from "../../components/TextCard/TextCard";
+import { devices } from "../../constants/mediaConstants";
 import { Flex } from "../../styled/Flex";
 
 const Wrapper = styled.div`
@@ -12,6 +12,9 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: flex-start;
   margin: 62px 0 0 0;
+  @media ${devices.tablet} {
+    display: none;
+  }
 `;
 
 type StepProps = {
@@ -36,6 +39,7 @@ const DropName = (props: DropNameProps) => {
       <Flex flexDirection="column" gap="96px" margin="96px 0 0 0">
         {nfts.map((el, i) => (
           <BigNftCard
+            key={el.id}
             isEven={i % 2 !== 0}
             dropStatus={el.dropStatus}
             date={el.date}

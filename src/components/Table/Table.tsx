@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styled, { DefaultTheme } from "styled-components";
+import styled from "styled-components";
 import { Flex } from "../../styled/Flex";
 import Arrow from "../../assets/icons/arrow.svg";
 
@@ -82,6 +82,7 @@ const SortedArrow = styled.div`
       props.isGrowth ? "180deg" : "0deg"}
   );
 `;
+const TableBody = styled.tbody``;
 
 type Data = {
   id: number;
@@ -108,7 +109,7 @@ export const Table = (props: TableProps) => {
   const [typeSort, setTypeSort] = useState(false);
   useEffect(() => {
     setTableData(data);
-  }, []);
+  }, [data]);
 
   const sortArray = (array: Data[], isGrowth: boolean) => {
     if (isGrowth) {
@@ -144,47 +145,52 @@ export const Table = (props: TableProps) => {
 
   return (
     <TableWrapper>
-      <HeaderRow>
-        <Header>NFT</Header>
-        <Header>Buyer</Header>
-        <Header>Sale Price</Header>
-        <Header>Amount</Header>
-        <Header>
-          <Flex alignItems="center" gap="12px">
-            Date Time
-            <SortedArrow
-              image={Arrow}
-              isGrowth={typeSort}
-              onClick={() => {
-                setTypeSort(!typeSort);
-                sortArray(tableData as Data[], typeSort);
-              }}
-            />
-          </Flex>
-        </Header>
-      </HeaderRow>
-      {tableData?.length &&
-        tableData.map((el) => {
-          return (
-            <TableRow key={el.id}>
-              <TableNFTData>
-                <Flex alignItems="center" gap="12px">
-                  <NFTImage image={el.nft.image} />
-                  <BoldText>{el.nft.name}</BoldText>
-                </Flex>
-              </TableNFTData>
-              <TableData>
-                <Flex alignItems="center" gap="12px">
-                  <Avatar image={el.buyer.avatar} />
-                  <BoldText>{el.buyer.name}</BoldText>
-                </Flex>
-              </TableData>
-              <TableData>{el.salePrice}</TableData>
-              <TableData>{el.amount}</TableData>
-              <TableData>{el.dateTime}</TableData>
-            </TableRow>
-          );
-        })}
+      <thead>
+        <HeaderRow>
+          <Header>NFT</Header>
+          <Header>Buyer</Header>
+          <Header>Sale Price</Header>
+          <Header>Amount</Header>
+          <Header>
+            <Flex alignItems="center" gap="12px">
+              Date Time
+              <SortedArrow
+                image={Arrow}
+                isGrowth={typeSort}
+                onClick={() => {
+                  setTypeSort(!typeSort);
+                  sortArray(tableData as Data[], typeSort);
+                }}
+              />
+            </Flex>
+          </Header>
+        </HeaderRow>
+      </thead>
+
+      <TableBody>
+        {tableData?.length &&
+          tableData.map((el) => {
+            return (
+              <TableRow key={el.id}>
+                <TableNFTData>
+                  <Flex alignItems="center" gap="12px">
+                    <NFTImage image={el.nft.image} />
+                    <BoldText>{el.nft.name}</BoldText>
+                  </Flex>
+                </TableNFTData>
+                <TableData>
+                  <Flex alignItems="center" gap="12px">
+                    <Avatar image={el.buyer.avatar} />
+                    <BoldText>{el.buyer.name}</BoldText>
+                  </Flex>
+                </TableData>
+                <TableData>{el.salePrice}</TableData>
+                <TableData>{el.amount}</TableData>
+                <TableData>{el.dateTime}</TableData>
+              </TableRow>
+            );
+          })}
+      </TableBody>
     </TableWrapper>
   );
 };

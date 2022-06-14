@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import FundCard from "../../components/FundCard/FundCard";
 import TextCard from "../../components/TextCard/TextCard";
+import { devices } from "../../constants/mediaConstants";
 import { Flex } from "../../styled/Flex";
 
 const AboutMissionWrapper = styled.div`
@@ -9,6 +10,16 @@ const AboutMissionWrapper = styled.div`
   justify-content: center;
   align-items: flex-start;
   margin: 62px 0 0 0;
+`;
+
+const FundsBlock = styled.div`
+  display: flex;
+  width: 100%;
+  margin: 96px 0 0 0;
+  @media ${devices.tablet} {
+    width: 100px;
+    overflow-x: auto;
+  }
 `;
 
 type AboutMissionProps = {
@@ -26,11 +37,11 @@ const AboutMission = (props: AboutMissionProps) => {
   return (
     <AboutMissionWrapper>
       <TextCard title={title} description={description} file />
-      <Flex width="100%" margin="96px 0 0 0">
+      <FundsBlock>
         {funds.map((el, i) => (
-          <FundCard name={el.name} title={el.title} image={el.image} />
+          <FundCard key={i} name={el.name} title={el.title} image={el.image} />
         ))}
-      </Flex>
+      </FundsBlock>
     </AboutMissionWrapper>
   );
 };

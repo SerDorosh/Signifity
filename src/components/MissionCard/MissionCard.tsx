@@ -19,7 +19,7 @@ type ImageProps = {
 };
 
 const CardWrapper = styled.div`
-  width: ${(props: { size: string | undefined }) =>
+  max-width: ${(props: { size: string | undefined }) =>
     props.size === "small" ? "430px" : "660px"};
   height: ${(props: { size: string | undefined }) =>
     props.size === "small" ? "342px" : "550px"};

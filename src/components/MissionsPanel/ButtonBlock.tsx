@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import Bell from "../../assets/icons/bellIcon.svg";
 import Connect from "../../assets/icons/connectIcon.svg";
@@ -8,6 +8,8 @@ import Dots from "../../assets/icons/dotsIcon.svg";
 const Block = styled.div`
   display: flex;
   filter: drop-shadow(0px 8px 24px rgba(0, 0, 0, 0.08));
+  position: relative;
+  z-index: 1000;
 `;
 
 const Button = styled(PrimaryButton)`
@@ -40,7 +42,43 @@ const ButtonText = styled.div`
   color: ${({ theme }) => theme.colors.primaryColor};
 `;
 
-const ButtonBlock = () => {
+const DotsMenu = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: -116px;
+  width: 150px;
+  padding: 8px 0px;
+  background: ${({ theme }) => theme.colors.white};
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.24);
+  border-radius: 12px;
+  z-index: 1000;
+`;
+
+type MenuItemProps = {
+  theme: DefaultTheme;
+  red?: boolean;
+};
+
+const MenuItem = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  font-family: ${({ theme }: MenuItemProps) => theme.fonts.Roboto};
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: ${({ theme, red }: MenuItemProps) =>
+    red ? theme.colors.red : theme.colors.black};
+`;
+
+type ButtonBlockProps = {
+  showNotification: (value: boolean) => void;
+  showMenu: boolean;
+  setShowMenu: (value: boolean) => void;
+};
+const ButtonBlock = (props: ButtonBlockProps) => {
+  const { showNotification, showMenu, setShowMenu } = props;
   return (
     <Block>
       <Button>
@@ -49,13 +87,24 @@ const ButtonBlock = () => {
       <Button>
         <ButtonIcon image={Share} />
       </Button>
-      <Button>
+      <Button onClick={() => showNotification(true)}>
         <ButtonIcon image={Bell} />
         <ButtonText>Subscribe</ButtonText>
       </Button>
-      <Button>
+      <Button
+        onClick={(e) => {
+          e.stopPropagation();
+          setShowMenu(true);
+        }}
+      >
         <ButtonIcon image={Dots} />
       </Button>
+      {showMenu && (
+        <DotsMenu>
+          <MenuItem>Mission’s terms</MenuItem>
+          <MenuItem red>Report</MenuItem>
+        </DotsMenu>
+      )}
     </Block>
   );
 };

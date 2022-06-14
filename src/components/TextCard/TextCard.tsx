@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { devices } from "../../constants/mediaConstants";
 import { Flex } from "../../styled/Flex";
 import DownloadButton from "../DownloadButton/DownloadButton";
 
@@ -15,6 +16,11 @@ const Title = styled.div`
   font-size: 60px;
   line-height: 72px;
   color: ${({ theme }) => theme.colors.black};
+
+  @media ${devices.tablet} {
+    font-size: 34px;
+    line-height: 36px;
+  }
 `;
 
 const Description = styled.div`
@@ -25,6 +31,10 @@ const Description = styled.div`
   font-size: 20px;
   line-height: 30px;
   color: ${({ theme }) => theme.colors.lightBlack};
+  @media ${devices.tablet} {
+    font-size: 16px;
+    line-height: 24px;
+  }
 `;
 
 const ShortDescription = styled.div`
@@ -42,6 +52,10 @@ const ShortDescription = styled.div`
   font-size: 20px;
   line-height: 30px;
   color: ${({ theme }) => theme.colors.lightBlack};
+  @media ${devices.tablet} {
+    font-size: 16px;
+    line-height: 24px;
+  }
 `;
 
 const MoreOrLessButton = styled.div`

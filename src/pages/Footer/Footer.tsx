@@ -5,12 +5,15 @@ import Instagram from "../../assets/icons/instagramIcon.svg";
 import MIcon from "../../assets/icons/mIcon.svg";
 import Telegram from "../../assets/icons/telegramIcon.svg";
 import Twitter from "../../assets/icons/twitterIcon.svg";
+import { devices } from "../../constants/mediaConstants";
 
 const FooterWrapper = styled.div`
   padding: 0 72px;
-  height: 394px;
   background: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
+  @media ${devices.tablet} {
+    padding: 0 24px;
+  }
 `;
 
 const Content = styled.div`
@@ -25,6 +28,10 @@ const Block = styled(Layout)`
   width: 100%;
   margin: 72px auto 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.opacityWhite};
+  @media ${devices.tablet} {
+    flex-direction: column;
+    gap: 24px;
+  }
 `;
 
 const CommunityBlock = styled.div`
@@ -33,6 +40,9 @@ const CommunityBlock = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  @media ${devices.tablet} {
+    width: 100%;
+  }
 `;
 
 const CommunityTitle = styled.div`
@@ -51,6 +61,7 @@ const CommunityDescription = styled.div`
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
+  color: ${({ theme }) => theme.colors.lightWhite};
 `;
 
 const FooterMenu = styled.div`
@@ -58,6 +69,9 @@ const FooterMenu = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
+  @media ${devices.tablet} {
+    align-items: flex-start;
+  }
 `;
 
 const MenuItem = styled.div`
@@ -83,6 +97,10 @@ const CommunityButton = styled.div`
   height: 56px;
   border-radius: 12px;
   background-color: ${({ theme }) => theme.colors.opacityWhite};
+  @media ${devices.tablet} {
+    width: 48px;
+    height: 48px;
+  }
 `;
 
 const ButtonIcon = styled.div`
@@ -92,6 +110,24 @@ const ButtonIcon = styled.div`
   background-size: cover;
   background-position: center;
   background-image: url(${(props: { image: string }) => props.image});
+  @media ${devices.tablet} {
+    width: 24px;
+    height: 24px;
+  }
+`;
+
+const CopyrightAndTermsBlock = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 24px 0;
+  @media ${devices.tablet} {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "Terms"
+      "Copyright";
+    grid-gap: 24px;
+  }
 `;
 
 const CopyrightNotices = styled.div`
@@ -101,16 +137,26 @@ const CopyrightNotices = styled.div`
   font-size: 16px;
   line-height: 24px;
   color: ${({ theme }) => theme.colors.lightWhite};
+  @media ${devices.tablet} {
+    grid-area: Copyright;
+  }
 `;
 
 const TermsLink = styled.div`
-  margin-left: 16px;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
   color: ${({ theme }) => theme.colors.lightWhite};
+`;
+
+const TermsBlock = styled.div`
+  display: flex;
+  gap: 16px;
+  @media ${devices.tablet} {
+    flex-direction: column;
+  }
 `;
 
 const Footer = () => {
@@ -146,15 +192,15 @@ const Footer = () => {
             <MenuItem>About</MenuItem>
           </FooterMenu>
         </Block>
-        <Flex justifyContent="space-between" margin="24px 0">
+        <CopyrightAndTermsBlock>
           <CopyrightNotices>
             © Signifty, Inc. All rights reserved.
           </CopyrightNotices>
-          <Flex>
+          <TermsBlock>
             <TermsLink>Terms of Service</TermsLink>
             <TermsLink>Privacy</TermsLink>
-          </Flex>
-        </Flex>
+          </TermsBlock>
+        </CopyrightAndTermsBlock>
       </Content>
     </FooterWrapper>
   );

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import Document from "../../assets/icons/document.svg";
 import Download from "../../assets/icons/downloadIcon.svg";
+import { devices } from "../../constants/mediaConstants";
 
 const Button = styled(PrimaryButton)`
   margin-bottom: 24px;
@@ -19,6 +20,9 @@ const IconBlock = styled.div`
   border-radius: 12px;
   background: ${({ theme }) => theme.colors.white};
   box-sizing: border-box;
+  @media ${devices.tablet} {
+    padding: 12px;
+  }
 `;
 
 type IconProps = {
@@ -33,6 +37,8 @@ const Icon = styled.div`
   background-size: contain;
   background-position: center;
   background-image: url(${(props: IconProps) => props.image});
+  @media ${devices.tablet} {
+  }
 `;
 
 const Text = styled.div`
@@ -42,6 +48,10 @@ const Text = styled.div`
   font-weight: 700;
   font-size: 20px;
   line-height: 30px;
+  @media ${devices.tablet} {
+    font-size: 16px;
+    line-height: 24px;
+  }
 `;
 
 const DownloadButton = () => {

@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import { Table } from "../../components/Table/Table";
+import { devices } from "../../constants/mediaConstants";
 import Layout from "../../styled/Layout";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 
 const Wrapper = styled.div`
   width: 100%;
   background: ${({ theme }) => theme.colors.gray};
+  @media ${devices.tablet} {
+    display: none;
+  }
 `;
 
 const Content = styled(Layout)`
@@ -13,6 +17,9 @@ const Content = styled(Layout)`
   flex-direction: column;
   align-items: center;
   max-width: 1440px;
+  @media ${devices.tablet} {
+    max-width: 720px;
+  }
 `;
 
 const CardHeader = styled.div`

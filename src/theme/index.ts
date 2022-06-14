@@ -21,6 +21,7 @@ const colors = {
   lightGray: "#F4F4F4",
   opacityWhite: "rgba(255, 255, 255, 0.12)",
   lightWhite: "rgba(255, 255, 255, 0.54)",
+  red: "#F2003A",
 };
 
 export const theme: Theme = {

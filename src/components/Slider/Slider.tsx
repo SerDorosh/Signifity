@@ -1,6 +1,5 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import styled from "styled-components";
-import { Flex } from "../../styled/Flex";
 import Arrow from "../../assets/icons/arrow.svg";
 
 const Wrapper = styled.div`
@@ -59,10 +58,6 @@ const Slider = (props: SliderProps) => {
   const { children, howToShow } = props;
   const [indexShow, setIndexShow] = useState(howToShow);
 
-  //   useEffect(() => {
-  //     setIndexShow(howToShow);
-  //   }, []);
-
   return (
     <Wrapper>
       <Button
@@ -79,6 +74,7 @@ const Slider = (props: SliderProps) => {
           if (i >= indexShow - howToShow && i < indexShow) {
             return child;
           }
+          return null;
         })}
       </SliderWrapper>
       <Button

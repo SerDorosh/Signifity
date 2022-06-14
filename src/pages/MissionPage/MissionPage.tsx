@@ -1,19 +1,27 @@
+import { useState } from "react";
 import styled, { DefaultTheme } from "styled-components";
 import AvatarList from "../../components/AvatarList/AvatarList";
 import CelebrityCard from "../../components/CelebrityCard/CelebrityCard";
 import ButtonBlock from "../../components/MissionsPanel/ButtonBlock";
 import InfoBlock from "../../components/MissionsPanel/InfoBlock";
+import NotificationBlock from "../../components/Notification/NotificationBlock";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import Timer from "../../components/Timer/Timer";
+import { devices } from "../../constants/mediaConstants";
 import { Flex } from "../../styled/Flex";
 import Layout from "../../styled/Layout";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import AboutMission from "./AboutMission";
+import BackgroundBlock from "./BackgroundBlock";
 import DropName from "./DropName";
 import MissionReport from "./MissionReport";
 import OtherMissions from "./OtherMissions";
 import SaleHistory from "./SaleHistory";
 import ThanksBlock from "./ThanksBlock";
+
+const Page = styled.div`
+  position: relative;
+`;
 
 type StatusLabelProps = {
   theme: DefaultTheme;
@@ -28,24 +36,32 @@ const StatusLabel = styled(PrimaryButton)`
   margin-bottom: 12px;
 `;
 
-const BackgroundBlock = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  ${(props: { image?: string; theme: DefaultTheme }) =>
-    props.image
-      ? `background-image: url(${props.image})`
-      : `background: ${props.theme.colors.gray}`};
-`;
+// const BackgroundBlock = styled.div`
+//   width: 100%;
+//   height: 580px;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
+//   justify-content: center;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   background-position: center;
+//   ${(props: { image?: string; theme: DefaultTheme }) =>
+//     props.image
+//       ? `background-image: url(${props.image})`
+//       : `background: ${props.theme.colors.gray}`};
+
+//   @media ${devices.tablet} {
+//     display: none;
+//   }
+// `;
 
 const Content = styled(Layout)`
   position: relative;
   max-width: 1440px;
+  @media ${devices.tablet} {
+    margin: 24px;
+  }
 `;
 
 const MissionTitle = styled.div`
@@ -91,7 +107,15 @@ const GoalBlock = styled.div`
 const PageParts = styled.div`
   position: relative;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 67% 33%;
+  grid-gap: 50px;
+  width: 100%;
+  @media ${devices.tablet} {
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "Right"
+      "Left";
+  }
 `;
 
 const PanelBetweenParts = styled.div`
@@ -104,14 +128,26 @@ const PanelBetweenParts = styled.div`
   right: 0;
   left: 0;
   transform: translate(0, -50%);
+  z-index: 100;
+  box-sizing: border-box;
+  @media ${devices.tablet} {
+    display: none;
+  }
 `;
 
 const LeftPart = styled.div`
-  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  @media ${devices.tablet} {
+    grid-area: Left;
+  }
 `;
 const RightPart = styled.div`
   display: flex;
   justify-content: center;
+  @media ${devices.tablet} {
+    grid-area: Right;
+  }
 `;
 
 const MissionPage = () => {
@@ -301,7 +337,12 @@ const MissionPage = () => {
       },
     ],
     thanks: true,
-    missionReport: true,
+    missionReport: false,
+    modal: {
+      title: "Our congratulations!",
+      description:
+        " We are glad that you managed to join the mission and now you can participate in the presale. Have a fun!",
+    },
   };
 
   const {
@@ -318,37 +359,39 @@ const MissionPage = () => {
     tableData,
     thanks,
     missionReport,
+    modal,
   } = MockData;
 
+  const [showNotification, setShowNotification] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+
+  console.log(showMenu);
   return (
-    <>
-      <BackgroundBlock>
-        <Content>
-          <Flex>
-            <StatusLabel status={status}>{status}</StatusLabel>
-          </Flex>
-          <MissionTitle>Mission Title</MissionTitle>
-          <Flex alignItems="center" margin="16px 0 56px">
-            <AvatarList icons={celebrityIcons} howManyShowIcons={2} />
-            <CelebrityName>By Celebrity Name & Fund Name...</CelebrityName>
-          </Flex>
-          {status === "pending" ? (
-            <Flex alignItems="center">
-              <JoinButton>Join to the wait list</JoinButton>
-              <Timer date={dateStart} text="{timer} left" />
-            </Flex>
-          ) : (
-            <Flex alignItems="center">
-              <ProgressBar goal={goal} currentValue={currentValue} />
-              <GoalBlock>{`${goal} ${currency}`}</GoalBlock>
-            </Flex>
-          )}
-        </Content>
-      </BackgroundBlock>
+    <Page onClick={() => setShowMenu(false)}>
+      {showNotification && (
+        <NotificationBlock
+          title={modal.title}
+          description={modal.description}
+          isOpen={showNotification}
+          setIsOpen={setShowNotification}
+        />
+      )}
+      <BackgroundBlock
+        status={status}
+        celebrityIcons={celebrityIcons}
+        dateStart={dateStart}
+        goal={goal}
+        currentValue={currentValue}
+        currency={currency}
+      />
       <Content>
         <PanelBetweenParts>
           <InfoBlock />
-          <ButtonBlock />
+          <ButtonBlock
+            showNotification={setShowNotification}
+            showMenu={showMenu}
+            setShowMenu={setShowMenu}
+          />
         </PanelBetweenParts>
         <PageParts>
           <LeftPart>
@@ -376,10 +419,10 @@ const MissionPage = () => {
         </PageParts>
       </Content>
       <SaleHistory tableData={tableData} />
-      <Content>
+      {/* <Content>
         <OtherMissions missions={otherMissions} />
-      </Content>
-    </>
+      </Content> */}
+    </Page>
   );
 };
 

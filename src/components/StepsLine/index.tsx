@@ -33,9 +33,8 @@ export const Steps = ({ steps }: any) => {
           />
         ) : (
           <StepWrap key={step.id}>
-            <Line key={step.id} status={step.status} />
+            <Line status={step.status} />
             <Step
-              key={step.id}
               title={step.title}
               date={step.date}
               status={step.status}

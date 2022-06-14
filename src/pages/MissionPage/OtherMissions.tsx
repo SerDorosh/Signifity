@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import MissionCard from "../../components/MissionCard/MissionCard";
+import { devices } from "../../constants/mediaConstants";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 
 const Wrapper = styled.div`
@@ -7,6 +8,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 96px 0;
+  @media ${devices.tablet} {
+    display: none;
+  }
 `;
 
 const CardHeader = styled.div`
