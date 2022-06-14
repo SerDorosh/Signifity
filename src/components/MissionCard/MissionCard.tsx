@@ -3,6 +3,7 @@ import { Flex } from "../../styled/Flex";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import AvatarList from "../AvatarList/AvatarList";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import { devices } from "../../constants/mediaConstants";
 
 type MissionsProps = {
   missionName: string;
@@ -19,8 +20,8 @@ type ImageProps = {
 };
 
 const CardWrapper = styled.div`
-  max-width: ${(props: { size: string | undefined }) =>
-    props.size === "small" ? "430px" : "660px"};
+  width: ${(props: { size: string | undefined }) =>
+    props.size === "small" ? "407px" : "660px"};
   height: ${(props: { size: string | undefined }) =>
     props.size === "small" ? "342px" : "550px"};
   background: ${({ theme }) => theme.colors.gray};
@@ -28,6 +29,14 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 15px;
+  @media ${devices.mobile} {
+    padding: 5px;
+    width: ${(props: { size: string | undefined }) =>
+      props.size === "small" ? "230px" : "312px"};
+    height: ${(props: { size: string | undefined }) =>
+      props.size === "small" ? "280px" : "454px"};
+  }
 `;
 export const FirstProjectImage = styled.div`
   position: relative;
@@ -68,15 +77,35 @@ const BottomSubtitle = styled.span`
   font-size: 16px;
   color: ${({ theme }) => theme.colors.lightBlack};
   margin: 10px 0 15px;
+  @media ${devices.mobile} {
+    margin: 5px 0 15px;
+  }
+`;
+const ButtonAndProgressWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  @media ${devices.mobile} {
+    flex-direction: column;
+    align-items: start;
+  }
 `;
 const MissionButton = styled(PrimaryButton)`
-  height: 28px;
+  width: 73px;
+  height: 32px;
   font-size: 14px;
+  padding: 0 1px;
 `;
 const DoneButton = styled(PrimaryButton)`
   background: ${({ theme }) => theme.colors.black};
   font-size: 14px;
-  height: 28px;
+  padding: 0 1px;
+  height: 32px;
+  width: 94px;
+  @media ${devices.tablet} {
+    width: 86px;
+  }
 `;
 export default function MissionCard({
   missionName,
@@ -89,14 +118,14 @@ export default function MissionCard({
 }: MissionsProps) {
   return (
     <CardWrapper size={size}>
-      <Flex justifyContent="space-between" margin="20px">
+      <Flex justifyContent="space-between">
         <AvatarList icons={image} howManyShowIcons={2} />
-        <TopText>12 h ago</TopText>
+        {goal !== currentProgress && <TopText>12 h ago</TopText>}
       </Flex>
       <Flex flexDirection="column" margin="20px">
         <BottomTitle>{missionName}</BottomTitle>
         <BottomSubtitle>By {celebrityName}</BottomSubtitle>
-        <Flex justifyContent="space-between">
+        <ButtonAndProgressWrapper>
           {currentProgress !== goal ? (
             <MissionButton>{buttonStatus}</MissionButton>
           ) : (
@@ -108,7 +137,7 @@ export default function MissionCard({
               currentValue={currentProgress}
             ></ProgressBar>
           )}
-        </Flex>
+        </ButtonAndProgressWrapper>
       </Flex>
     </CardWrapper>
   );

@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import MissionCard from "../../components/MissionCard/MissionCard";
+import Slider from "../../components/Slider/Slider";
 import { Flex } from "../../styled/Flex";
 import { PrimaryButton } from "../../styled/PrimaryButton";
+import { devices } from "../../constants/mediaConstants";
 
 type MissionsProps = {
   missions: any[];
@@ -9,6 +11,9 @@ type MissionsProps = {
 
 const CompletedMissionsWrapper = styled.div`
   margin: 100px 50px;
+  @media ${devices.tablet} {
+    margin: 30px;
+  }
 `;
 const Title = styled.div`
   font-family: ${({ theme }) => theme.fonts.Roboto};
@@ -16,12 +21,18 @@ const Title = styled.div`
   font-weight: 700;
   font-size: 34px;
   line-height: 36px;
+  @media ${devices.tablet} {
+    font-size: 20px;
+  }
 `;
 const ShowAllButton = styled(PrimaryButton)`
   font-size: 16px;
   height: 36px;
   color: ${({ theme }) => theme.colors.primaryColor};
   background: ${({ theme }) => theme.colors.secondaryPrimary};
+  @media ${devices.tablet} {
+    background: none;
+  }
 `;
 
 export default function CompletedMissions({ missions }: MissionsProps) {
@@ -31,7 +42,7 @@ export default function CompletedMissions({ missions }: MissionsProps) {
         <Title>Completed Missions</Title>
         <ShowAllButton>Show All</ShowAllButton>
       </Flex>
-      <Flex gap={20}>
+      <Slider howToShow={4}>
         {missions.map(
           ({
             id,
@@ -41,21 +52,20 @@ export default function CompletedMissions({ missions }: MissionsProps) {
             currentProgress,
             buttonStatus,
             goal,
-          }) =>
-            currentProgress === goal && (
-              <MissionCard
-                key={id}
-                missionName={missionName}
-                celebrityName={celebrityName}
-                image={image}
-                currentProgress={currentProgress}
-                buttonStatus={buttonStatus}
-                goal={goal}
-                size="small"
-              />
-            )
+          }) => (
+            <MissionCard
+              key={id}
+              missionName={missionName}
+              celebrityName={celebrityName}
+              image={image}
+              currentProgress={currentProgress}
+              buttonStatus={buttonStatus}
+              goal={goal}
+              size="small"
+            />
+          )
         )}
-      </Flex>
+      </Slider>
     </CompletedMissionsWrapper>
   );
 }
