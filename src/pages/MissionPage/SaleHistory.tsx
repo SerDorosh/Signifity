@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SaleHistoryCard from "../../components/SaleHistoryCard/SaleHistoryCard";
 import { Table } from "../../components/Table/Table";
 import { devices } from "../../constants/mediaConstants";
+import { checkMobileBrowser } from "../../helpers";
 import { Flex } from "../../styled/Flex";
 import Layout from "../../styled/Layout";
 import { PrimaryButton } from "../../styled/PrimaryButton";
@@ -82,6 +83,8 @@ type SaleHistoryProps = {
 const SaleHistory = (props: SaleHistoryProps) => {
   const { tableData } = props;
   const Ref = useRef<HTMLDivElement>(null);
+  const isMobile = checkMobileBrowser();
+
   return (
     <Wrapper>
       <Content>
@@ -89,7 +92,7 @@ const SaleHistory = (props: SaleHistoryProps) => {
           <Title>Sale History</Title>
           <ShowAllButton>Show All</ShowAllButton>
         </CardHeader>
-        {Ref && Ref.current && Ref.current.clientWidth > 720 ? (
+        {!isMobile ? (
           <Table data={tableData} />
         ) : (
           <ViewBlock width={Ref?.current?.clientWidth}>
