@@ -1,17 +1,17 @@
 import styled from "styled-components";
 import { devices } from "../../constants/mediaConstants";
 
+type ProgressPanelProps = {
+  isSmall?: boolean;
+};
+
 const ProgressPanel = styled.div`
   background: ${({ theme }) => theme.colors.white};
   width: 100%;
-  height: 36px;
+  height: ${({ isSmall }: ProgressPanelProps) => (!isSmall ? "36px" : "8px")};
   border-radius: 12px;
-  padding: 4px;
+  padding: ${({ isSmall }: ProgressPanelProps) => (!isSmall ? "4px" : "0px")};
   box-sizing: border-box;
-  @media ${devices.mobile} {
-    height: 12px;
-    padding: 0px;
-  }
 `;
 
 const getWidth = (percent: number) => {
@@ -40,27 +40,36 @@ const ProgressBlock = styled.div`
     isDone ? theme.colors.black : theme.colors.primaryColor};
   color: ${({ theme }) => theme.colors.white};
   border-radius: 8px;
+  box-sizing: border-box;
+`;
+
+type TextProps = {
+  isHideText?: boolean;
+};
+const Text = styled.span`
   font-family: ${({ theme }) => theme.fonts.Roboto};
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
   line-height: 24px;
-  box-sizing: border-box;
+  display: ${({ isHideText }: TextProps) => isHideText && "none"};
 `;
 
 type ProgressBarProps = {
   goal: number;
   currentValue: number;
+  isHideText?: boolean;
+  isSmall?: boolean;
 };
 
 const ProgressBar = (props: ProgressBarProps) => {
-  const { goal, currentValue } = props;
+  const { goal, currentValue, isHideText, isSmall } = props;
   const percent = (currentValue / goal) * 100;
 
   return (
-    <ProgressPanel>
+    <ProgressPanel isSmall={isSmall}>
       <ProgressBlock progressPercent={percent} isDone={percent >= 100}>
-        {percent}%
+        <Text isHideText={isHideText}>{percent}%</Text>
       </ProgressBlock>
     </ProgressPanel>
   );

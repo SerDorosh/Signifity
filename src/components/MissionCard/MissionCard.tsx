@@ -23,7 +23,7 @@ const CardWrapper = styled.div`
   width: ${(props: { size: string | undefined }) =>
     props.size === "small" ? "407px" : "660px"};
   height: ${(props: { size: string | undefined }) =>
-    props.size === "small" ? "342px" : "550px"};
+    props.size === "small" ? "342px" : "454px"};
   background: ${({ theme }) => theme.colors.gray};
   border-radius: 12px;
   display: flex;
@@ -133,6 +133,8 @@ export default function MissionCard({
           )}
           {currentProgress !== goal && (
             <ProgressBar
+            isSmall={true}
+            isHideText={true}
               goal={goal}
               currentValue={currentProgress}
             ></ProgressBar>
