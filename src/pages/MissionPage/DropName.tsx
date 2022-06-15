@@ -35,8 +35,10 @@ const NFTList = styled.div`
   flex-direction: column;
   gap: 96px;
   margin: 96px 0 0 0;
+  width: 100%;
   @media ${devices.tablet} {
     gap: 36px;
+    width: fit-content;
   }
 `;
 

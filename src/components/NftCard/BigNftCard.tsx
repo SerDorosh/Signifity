@@ -11,7 +11,7 @@ import Timer from "../Timer/Timer";
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 1fr 1fr;
   grid-column-gap: 56px;
   grid-template-areas: ${(props: { isEven?: boolean }) =>
     props.isEven ? `"b a"` : `"a b"`};

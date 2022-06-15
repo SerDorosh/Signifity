@@ -85,6 +85,11 @@ const JoinButton = styled(PrimaryButton)`
   }
 `;
 
+type GoalBlockProps = {
+  theme: DefaultTheme;
+  status: boolean;
+};
+
 const GoalBlock = styled.div`
   display: flex;
   justify-content: center;
@@ -92,7 +97,8 @@ const GoalBlock = styled.div`
   height: 36px;
   margin-left: 24px;
   padding: 8px 16px;
-  color: ${({ theme }) => theme.colors.primaryColor};
+  color: color: ${({ theme, status }: GoalBlockProps) =>
+    status ? theme.colors.black : theme.colors.primaryColor};;
   background: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
   font-family: ${({ theme }) => theme.fonts.Roboto};
@@ -198,7 +204,9 @@ const BackgroundBlock = (props: BackgroundBlockProps) => {
           ) : (
             <ProgressBlock>
               <ProgressBar goal={goal} currentValue={currentValue} />
-              <GoalBlock>{`${goal} ${currency}`}</GoalBlock>
+              <GoalBlock
+                status={goal === currentValue}
+              >{`${goal} ${currency}`}</GoalBlock>
             </ProgressBlock>
           )}
         </Block>
