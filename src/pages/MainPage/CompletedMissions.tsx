@@ -10,10 +10,7 @@ type MissionsProps = {
 };
 
 const CompletedMissionsWrapper = styled.div`
-  margin: 100px 50px;
-  @media ${devices.tablet} {
-    margin: 30px;
-  }
+  margin: 120px 0;
 `;
 const Title = styled.div`
   font-family: ${({ theme }) => theme.fonts.Roboto};

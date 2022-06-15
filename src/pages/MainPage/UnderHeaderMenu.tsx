@@ -10,13 +10,10 @@ type UnderHeaderMenuProps = {
 const Wrapper = styled.div`
   display: flex;
   justify-content: start;
-  margin: 50px;
+  padding:10px;
   @media ${devices.desktop} {
-    overflow: scroll;
+    overflow-x: scroll;
     overflow-wrap: wrap;
-  }
-  @media ${devices.tablet} {
-    margin: 30px;
   }
 `;
 

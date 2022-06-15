@@ -4,6 +4,8 @@ import Slider from "../../components/Slider/Slider";
 import { Flex } from "../../styled/Flex";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import { devices } from "../../constants/mediaConstants";
+import { useRef } from "react";
+import ScreenSize from "../../helpers/ScreenSize";
 
 type MissionsProps = {
   missions: any[];
@@ -18,22 +20,7 @@ const Title = styled.span`
     font-size: 20px;
   }
 `;
-const MissionsBlockWrapper = styled.div`
-  margin: 100px 50px;
-  @media ${devices.tablet} {
-    margin: 30px;
-  }
-
-`;
-const BigMissionsSliderWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  @media ${devices.desktop} {
-    overflow: scroll;
-  }
-`;
-const SmallMissionsSliderWrapper = styled(BigMissionsSliderWrapper)`
+const SmallMissionsSliderWrapper = styled.div`
   margin-top: 20px;
 `;
 const ShowAllButton = styled(PrimaryButton)`
@@ -47,43 +34,43 @@ const ShowAllButton = styled(PrimaryButton)`
 `;
 
 export default function MissionsBlock({ missions }: MissionsProps) {
+  const { isMobile, isTablet } = ScreenSize();
+
   return (
-    <MissionsBlockWrapper>
+    <>
       <Flex justifyContent="space-between" alignItems="center" margin="10px 0">
         <Title>Missions</Title>
         <ShowAllButton>Show All</ShowAllButton>
       </Flex>
-      <BigMissionsSliderWrapper>
-        <Slider howToShow={2}>
-          {missions.map(
-            (
-              {
-                id,
-                missionName,
-                celebrityName,
-                buttonStatus,
-                goal,
-                currentProgress,
-                image,
-              },
-              i
-            ) => (
-              <MissionCard
-                key={id + i}
-                missionName={missionName}
-                celebrityName={celebrityName}
-                buttonStatus={buttonStatus}
-                goal={goal}
-                currentProgress={currentProgress}
-                image={image}
-                size="big"
-              ></MissionCard>
-            )
-          )}
-        </Slider>
-      </BigMissionsSliderWrapper>
+      <Slider howToShow={isMobile || isTablet ? 1 : 2}>
+        {missions.map(
+          (
+            {
+              id,
+              missionName,
+              celebrityName,
+              buttonStatus,
+              goal,
+              currentProgress,
+              image,
+            },
+            i
+          ) => (
+            <MissionCard
+              key={id + i}
+              missionName={missionName}
+              celebrityName={celebrityName}
+              buttonStatus={buttonStatus}
+              goal={goal}
+              currentProgress={currentProgress}
+              image={image}
+              size="big"
+            ></MissionCard>
+          )
+        )}
+      </Slider>
       <SmallMissionsSliderWrapper>
-        <Slider howToShow={4}>
+        <Slider howToShow={!isMobile || !isTablet ? 3 : 2}>
           {missions.map(
             (
               {
@@ -111,6 +98,6 @@ export default function MissionsBlock({ missions }: MissionsProps) {
           )}
         </Slider>
       </SmallMissionsSliderWrapper>
-    </MissionsBlockWrapper>
+    </>
   );
 }

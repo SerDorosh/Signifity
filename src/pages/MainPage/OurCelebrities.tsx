@@ -13,7 +13,7 @@ type BlockProps = {
   moreThanSix: boolean;
 };
 const OurCelebrityBlock = styled.div`
-  margin: 100px 50px;
+  margin: 130px 0;
   display: ${({ moreThanSix }: BlockProps) => (!moreThanSix ? "grid" : "flex")};
   flex-direction: column;
   grid-template-columns: 1fr 1fr;
@@ -24,7 +24,6 @@ const OurCelebrityBlock = styled.div`
     flex-direction: column;
     align-items: start;
     overflow: scroll;
-    margin: 30px;
   }
 `;
 const Title = styled.p`
@@ -53,11 +52,12 @@ const SubTitle = styled.p`
 const UnderAvatarText = styled(Title)`
   font-size: ${({ moreThanSix }: BlockProps) =>
     !moreThanSix ? "24px" : "16px"};
+  white-space: nowrap;
   @media ${devices.tablet} {
     font-size: 16px;
   }
 `;
-const AvatarWrapper = styled.div`
+const AvatarsWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -65,7 +65,7 @@ const AvatarWrapper = styled.div`
   gap: 10px;
   @media ${devices.tablet} {
     flex-wrap: nowrap;
-    gap: 40px;
+    gap: 15px;
   }
 `;
 const AvatarImage = styled.div`
@@ -81,6 +81,10 @@ const AvatarImage = styled.div`
   @media ${devices.laptop} {
     width: 96px;
     height: 96px;
+  }
+  @media ${devices.tablet} {
+    width: 72px;
+    height: 72px;
   }
 `;
 
@@ -98,14 +102,14 @@ export default function OurCelebrities({
         <Title>The celebrity that are alseady with us</Title>
         <SubTitle>Additional text</SubTitle>
       </Flex>
-      <AvatarWrapper>
+      <AvatarsWrapper>
         {ourCelebrities.map(({ name, image, id }) => (
-          <Flex flexDirection="column" alignItems="center" gap={10} key={id}>
+          <Flex flexDirection="column" alignItems="center" key={id}>
             <AvatarImage size={size} image={image[0]} />
             <UnderAvatarText moreThanSix={moreThanSix}>{name}</UnderAvatarText>
           </Flex>
         ))}
-      </AvatarWrapper>
+      </AvatarsWrapper>
     </OurCelebrityBlock>
   );
 }
