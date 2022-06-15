@@ -4,14 +4,22 @@ import Arrow from "../../assets/icons/arrow.svg";
 
 const Wrapper = styled.div`
   position: relative;
-  width: 100%;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  ${(props: { withoutButton?: boolean }) =>
+    props.withoutButton ? "width: 100%" : ""};
+
+  ${(props: { withoutButton?: boolean }) =>
+    props.withoutButton ? "overflow-x:scroll" : ""};
 `;
 
 const SliderWrapper = styled.div`
   display: flex;
-  justify-content: center;
   gap: 16px;
   overflow: hidden;
+  ${(props: { withoutButton?: boolean }) =>
+    props.withoutButton ? "width: fit-content" : ""};
 `;
 
 const Button = styled.div`
@@ -52,39 +60,47 @@ const RightArrow = styled.div`
 type SliderProps = {
   children: ReactNode[];
   howToShow: number;
+  withoutButton?: boolean;
 };
 
 const Slider = (props: SliderProps) => {
-  const { children, howToShow } = props;
+  const { children, howToShow, withoutButton } = props;
   const [indexShow, setIndexShow] = useState(howToShow);
 
   return (
-    <Wrapper>
-      <Button
-        left
-        onClick={() => {
-          setIndexShow(indexShow - 1);
-        }}
-        disabled={indexShow - howToShow <= 0}
-      >
-        <LeftArrow image={Arrow} />
-      </Button>
-      <SliderWrapper>
+    <Wrapper withoutButton={withoutButton}>
+      {!withoutButton && (
+        <Button
+          left
+          onClick={() => {
+            setIndexShow(indexShow - 1);
+          }}
+          disabled={indexShow - howToShow <= 0}
+        >
+          <LeftArrow image={Arrow} />
+        </Button>
+      )}
+      <SliderWrapper withoutButton={withoutButton}>
         {children.map((child, i) => {
+          if (withoutButton) {
+            return child;
+          }
           if (i >= indexShow - howToShow && i < indexShow) {
             return child;
           }
           return null;
         })}
       </SliderWrapper>
-      <Button
-        onClick={() => {
-          setIndexShow(indexShow + 1);
-        }}
-        disabled={indexShow >= children.length}
-      >
-        <RightArrow image={Arrow} />
-      </Button>
+      {!withoutButton && (
+        <Button
+          onClick={() => {
+            setIndexShow(indexShow + 1);
+          }}
+          disabled={indexShow >= children.length}
+        >
+          <RightArrow image={Arrow} />
+        </Button>
+      )}
     </Wrapper>
   );
 };

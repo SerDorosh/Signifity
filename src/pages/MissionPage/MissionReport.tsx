@@ -3,6 +3,7 @@ import Slider from "../../components/Slider/Slider";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import Article from "../../assets/icons/articleIcon.svg";
 import { devices } from "../../constants/mediaConstants";
+import { checkMobileBrowser } from "../../helpers";
 
 const Wrapper = styled.div`
   display: flex;
@@ -84,10 +85,11 @@ const Button = styled(PrimaryButton)`
 `;
 
 const MissionReport = () => {
+  const isMobile = checkMobileBrowser();
   return (
     <Wrapper>
       <Title>Mission Report</Title>
-      <Slider howToShow={1}>
+      <Slider howToShow={3} withoutButton={isMobile}>
         <MediaContentBlock>1</MediaContentBlock>
         <MediaContentBlock>2</MediaContentBlock>
         <MediaContentBlock>3</MediaContentBlock>
