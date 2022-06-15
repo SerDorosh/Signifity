@@ -6,16 +6,6 @@ import { devices } from "../../constants/mediaConstants";
 import DoubleImage from "../DoubleImage/DoubleImage";
 import ScreenSize from "../../helpers/ScreenSize";
 
-type MissionsProps = {
-  missionName: string;
-  celebrityName: string;
-  buttonStatus: string;
-  goal: number;
-  currentProgress: number;
-  image: string[];
-  size: string;
-  theme?: DefaultTheme;
-};
 type ImageProps = {
   image: string | undefined;
 };
@@ -105,6 +95,17 @@ const DoneButton = styled(PrimaryButton)`
     width: 86px;
   }
 `;
+type MissionsProps = {
+  missionName: string;
+  celebrityName: string;
+  buttonStatus: string;
+  goal: number;
+  currentProgress: number;
+  image: string[];
+  size: string;
+  theme?: DefaultTheme;
+  status?: string;
+};
 export default function MissionCard({
   missionName,
   celebrityName,
@@ -113,6 +114,7 @@ export default function MissionCard({
   currentProgress,
   image,
   size,
+  status,
 }: MissionsProps) {
   const { isMobile, isTablet } = ScreenSize();
 
@@ -130,16 +132,23 @@ export default function MissionCard({
       <Flex flexDirection="column" margin="20px">
         <BottomTitle>{missionName}</BottomTitle>
         <BottomSubtitle>By {celebrityName}</BottomSubtitle>
+
         <ButtonAndProgressWrapper>
-          {currentProgress !== goal ? (
+          {currentProgress !== goal && status !== "Pending" ? (
             <MissionButton>{buttonStatus}</MissionButton>
+          ) : status === "Pending" ? (
+            <ButtonAndProgressWrapper>
+              <MissionButton>
+                Join to the wait list 00:00:00:00 Left{" "}
+              </MissionButton>
+            </ButtonAndProgressWrapper>
           ) : (
             <DoneButton>Completed</DoneButton>
           )}
-          {currentProgress !== goal && (
+          {currentProgress !== goal && status !== "Pending" && (
             <ProgressBar
-            isSmall={isMobile || isTablet}
-            isHideText={isMobile || isTablet}
+              isSmall={isMobile || isTablet}
+              isHideText={isMobile || isTablet}
               goal={goal}
               currentValue={currentProgress}
             ></ProgressBar>

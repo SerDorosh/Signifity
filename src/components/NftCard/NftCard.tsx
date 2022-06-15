@@ -154,7 +154,6 @@ export default function NftCard({
   status,
   date,
 }: NftProps) {
-  console.log(bigButton);
   return (
     <Wrapper>
       <NftImage image={logoNft}>
