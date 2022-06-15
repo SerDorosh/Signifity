@@ -2,12 +2,14 @@ import { useState } from "react";
 import styled, { DefaultTheme } from "styled-components";
 import AvatarList from "../../components/AvatarList/AvatarList";
 import CelebrityCard from "../../components/CelebrityCard/CelebrityCard";
+import { JoinPanel } from "../../components/JoinPanel/JoinPanel";
 import ButtonBlock from "../../components/MissionsPanel/ButtonBlock";
 import InfoBlock from "../../components/MissionsPanel/InfoBlock";
 import NotificationBlock from "../../components/Notification/NotificationBlock";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import Timer from "../../components/Timer/Timer";
 import { devices } from "../../constants/mediaConstants";
+import { checkMobileBrowser } from "../../helpers";
 import { Flex } from "../../styled/Flex";
 import Layout from "../../styled/Layout";
 import { PrimaryButton } from "../../styled/PrimaryButton";
@@ -22,6 +24,17 @@ import ThanksBlock from "./ThanksBlock";
 
 const Page = styled.div`
   position: relative;
+  gap: 96px;
+  @media ${devices.tablet} {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "1"
+      "2"
+      "3"
+      "4"
+      "JoinPanel";
+  }
 `;
 
 const Content = styled(Layout)`
@@ -59,7 +72,8 @@ const PanelBetweenParts = styled.div`
   z-index: 100;
   box-sizing: border-box;
   @media ${devices.tablet} {
-    display: none;
+    position: static;
+    margin-top: 13px;
   }
 `;
 
@@ -98,7 +112,7 @@ const MissionPage = () => {
 
   const [showNotification, setShowNotification] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-
+  const isMobile = checkMobileBrowser();
   return (
     <Page onClick={() => setShowMenu(false)}>
       {showNotification && (
@@ -116,15 +130,21 @@ const MissionPage = () => {
         goal={goal}
         currentValue={currentValue}
         currency={currency}
+        showNotification={setShowNotification}
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
       />
       <Content>
         <PanelBetweenParts>
           <InfoBlock />
-          <ButtonBlock
-            showNotification={setShowNotification}
-            showMenu={showMenu}
-            setShowMenu={setShowMenu}
-          />
+
+          {!isMobile && (
+            <ButtonBlock
+              showNotification={setShowNotification}
+              showMenu={showMenu}
+              setShowMenu={setShowMenu}
+            />
+          )}
         </PanelBetweenParts>
         <PageParts>
           <LeftPart>
@@ -151,10 +171,13 @@ const MissionPage = () => {
           </RightPart>
         </PageParts>
       </Content>
+
+      <JoinPanel showJoin />
+
       <SaleHistory tableData={tableData} />
-      {/* <Content>
+      <Content>
         <OtherMissions missions={otherMissions} />
-      </Content> */}
+      </Content>
     </Page>
   );
 };

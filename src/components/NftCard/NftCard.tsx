@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
 import { Flex } from "../../styled/Flex";
 import QrCode from "../../assets/image/qrCodeNft.svg";
 import WalletNft from "../../assets/image/walletNft.svg";
@@ -7,14 +7,18 @@ import FireIcon from "../../assets/icons/fireIconNft.svg";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import DoubleImage from "../DoubleImage/DoubleImage";
 import { devices } from "../../constants/mediaConstants";
+import Timer from "../Timer/Timer";
 
 type NftProps = {
   name: string;
   logoNft: string;
-  image: string[];
+  image?: string[];
   likes: number;
   rating: number;
   price: string;
+  bigButton?: boolean;
+  status?: string;
+  date?: number;
 };
 
 const Wrapper = styled.div`
@@ -36,7 +40,7 @@ const NftImage = styled.div`
   background-size: cover;
   background-position: center;
   @media ${devices.mobile} {
-    width: 264px;
+    max-width: 100%;
   }
 `;
 const Title = styled.p`
@@ -95,13 +99,50 @@ const FireIconComponent = styled.div`
   background-position: center;
   background-image: url(${(props: { image: string }) => props.image});
 `;
+
+type ButtonProps = {
+  theme: DefaultTheme;
+  bigButton?: boolean;
+};
+
 const BuyButton = styled(PrimaryButton)`
   padding: 0;
-  width: 154px;
+  width: ${(props: ButtonProps) => (props.bigButton ? "100%" : "154px")};
   height: 40px;
-  color: ${({ theme }) => theme.colors.primaryColor};
-  background: ${({ theme }) => theme.colors.secondaryPrimary};
+  color: ${(props: ButtonProps) => props.theme.colors.primaryColor};
+  background: ${(props: ButtonProps) => props.theme.colors.secondaryPrimary};
+  box-sizing: border-box;
 `;
+
+const NotForSaleButton = styled(PrimaryButton)`
+  height: 40px;
+  width: ${(props: ButtonProps) => (props.bigButton ? "100%" : "154px")};
+  color: ${({ theme }) => theme.colors.white};
+  background: ${({ theme }) => theme.colors.black};
+  box-sizing: border-box;
+`;
+
+const renderButton = (status: string, date?: number, bigButton?: boolean) => {
+  switch (status) {
+    case "dropStart":
+      return <BuyButton bigButton={bigButton}>Buy 0.009 ETH</BuyButton>;
+    case "dropPending":
+      return (
+        <Timer
+          secondary
+          text={"Drop sales start in {timer}"}
+          date={date ? date : 0}
+        />
+      );
+    case "notForSale":
+      return (
+        <NotForSaleButton bigButton={bigButton}>Not for Sale</NotForSaleButton>
+      );
+    default:
+      return null;
+  }
+};
+
 export default function NftCard({
   name,
   logoNft,
@@ -109,7 +150,11 @@ export default function NftCard({
   likes,
   rating,
   price,
+  bigButton,
+  status,
+  date,
 }: NftProps) {
+  console.log(bigButton);
   return (
     <Wrapper>
       <NftImage image={logoNft}>
@@ -130,13 +175,19 @@ export default function NftCard({
           <Text> {rating}/1000</Text>
         </Flex>
         <Flex justifyContent="space-between" alignItems="center">
-          <BuyButton>Buy {price}</BuyButton>
-          <DoubleImage
-            firstImage={image[0]}
-            secondImage={image[1]}
-            size="40px"
-            side="right"
-          />
+          {status ? (
+            renderButton(status, date, bigButton)
+          ) : (
+            <BuyButton bigButton={bigButton}>Buy 0.009 ETH</BuyButton>
+          )}
+          {image && (
+            <DoubleImage
+              firstImage={image[0]}
+              secondImage={image[1]}
+              size="40px"
+              side="right"
+            />
+          )}
         </Flex>
       </Flex>
     </Wrapper>

@@ -1,28 +1,27 @@
 import styled, { DefaultTheme } from "styled-components";
+import { devices } from "../../constants/mediaConstants";
+import { checkMobileBrowser } from "../../helpers";
 
 const InfoBlockWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 77px;
   filter: drop-shadow(0px 8px 24px rgba(0, 0, 0, 0.08));
-`;
-
-const getBorderRadius = (position?: string) => {
-  switch (position) {
-    case "first":
-      return "12px 0px 0px 12px";
-    case "last":
-      return "0px 12px 12px 0px";
-    default:
-      return "0";
+  background: ${({ theme }) => theme.colors.white};
+  border-radius: 12px;
+  @media ${devices.tablet} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
   }
-};
+`;
 
 type InfoItemProps = {
   position: string;
   theme: DefaultTheme;
   noBorder?: boolean;
+  borderTop?: boolean;
 };
 
 const InfoItem = styled.div`
@@ -30,14 +29,17 @@ const InfoItem = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  height: 100%;
+  height: 77px;
   padding: 16px 24px;
-  background: ${({ theme }) => theme.colors.white};
-  border-radius: ${(props: InfoItemProps) => getBorderRadius(props.position)};
-  box-shadow: ${(props: InfoItemProps) =>
-    props.noBorder ? "" : `inset 1px 0px 0px rgba(0, 0, 0, 0.12)`};
-
+  border-left: ${(props: InfoItemProps) =>
+    props.noBorder ? "0" : `1px solid rgba(0, 0, 0, 0.12)`};
+  border-top: ${(props: InfoItemProps) =>
+    props.borderTop ? `1px solid rgba(0, 0, 0, 0.12)` : "0"};
   box-sizing: border-box;
+  @media ${devices.tablet} {
+    padding: 0;
+    align-items: center;
+  }
 `;
 
 const BlockTitle = styled.div`
@@ -57,24 +59,26 @@ const BlockValue = styled.div`
   font-size: 16px;
   line-height: 24px;
   color: ${({ theme }) => theme.colors.black};
+  white-space: nowrap;
 `;
 
 const InfoBlock = () => {
+  const isMobile = checkMobileBrowser();
   return (
     <InfoBlockWrapper>
       <InfoItem position="first" noBorder>
         <BlockTitle>Date Created</BlockTitle>
         <BlockValue>22 Aug, 2022</BlockValue>
       </InfoItem>
-      <InfoItem position="center">
+      <InfoItem position="second">
         <BlockTitle>Items</BlockTitle>
         <BlockValue>10000</BlockValue>
       </InfoItem>
-      <InfoItem position="center">
+      <InfoItem position="third" noBorder={isMobile} borderTop={isMobile}>
         <BlockTitle>Total Volume</BlockTitle>
         <BlockValue>99999.999 ETH</BlockValue>
       </InfoItem>
-      <InfoItem position="last">
+      <InfoItem position="last" borderTop={isMobile}>
         <BlockTitle>Category</BlockTitle>
         <BlockValue>Category Name</BlockValue>
       </InfoItem>

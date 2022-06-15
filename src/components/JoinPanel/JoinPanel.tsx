@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import Bell from "../../assets/icons/bellIcon.svg";
 import Share from "../../assets/icons/shareIcon.svg";
+import { devices } from "../../constants/mediaConstants";
+import { checkMobileBrowser } from "../../helpers";
 
 const Wrapper = styled.div`
   width: fit-content;
@@ -10,9 +12,18 @@ const Wrapper = styled.div`
   align-items: center;
   margin-top: 96px;
   padding: 25px;
+  margin: 72px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
   box-sizing: border-box;
+  @media ${devices.tablet} {
+    grid-area: JoinPanel;
+
+    margin: 0 0 -100px;
+    border-radius: 0;
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 const Button = styled(PrimaryButton)`
@@ -23,6 +34,24 @@ const Button = styled(PrimaryButton)`
   background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.primaryColor};
   box-sizing: border-box;
+  @media ${devices.tablet} {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 12px;
+  }
+`;
+
+const BellsButton = styled(PrimaryButton)<{ small?: boolean }>`
+  display: flex;
+  gap: 14px;
+  @media ${devices.tablet} {
+    padding: ${({ small }) => (small ? "4px 16px" : "4px 36px")};
+  }
+`;
+
+const JoinButton = styled(PrimaryButton)`
+  @media ${devices.tablet} {
+    padding: 4px 16px;
+  }
 `;
 
 const ButtonIcon = styled.div`
@@ -35,7 +64,6 @@ const ButtonIcon = styled.div`
 `;
 
 const ButtonText = styled.div`
-  margin-left: 14px;
   font-family: ${({ theme }) => theme.fonts.Roboto};
   font-style: normal;
   font-weight: 700;
@@ -48,20 +76,23 @@ type JoinPanelProps = {
 };
 
 export const JoinPanel = (props: JoinPanelProps) => {
+  const isMobile = checkMobileBrowser();
   const { showJoin } = props;
   return (
     <Wrapper>
       <Button>
         <ButtonIcon image={Share} />
       </Button>
-      <PrimaryButton secondary>
+      <BellsButton secondary small={isMobile && showJoin}>
         <ButtonIcon image={Bell} />
-        <ButtonText>Don't miss Presale</ButtonText>
-      </PrimaryButton>
+        {isMobile && showJoin ? null : (
+          <ButtonText>Don't miss Presale</ButtonText>
+        )}
+      </BellsButton>
       {showJoin && (
-        <PrimaryButton>
+        <JoinButton>
           <ButtonText>Join to the wait list</ButtonText>
-        </PrimaryButton>
+        </JoinButton>
       )}
     </Wrapper>
   );

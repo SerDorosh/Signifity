@@ -15,6 +15,7 @@ const HeaderWrapper = styled.div`
   box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.12);
   z-index: 205;
   @media ${devices.tablet} {
+    height: 56px;
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid: none;

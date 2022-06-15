@@ -16,6 +16,7 @@ const Wrapper = styled.div`
   align-items: flex-start;
   margin: 62px 0 0 0;
   @media ${devices.tablet} {
+    align-items: center;
   }
 `;
 
@@ -24,9 +25,18 @@ const ViewBlock = styled.div`
     display: none;
   }
   @media ${devices.tablet} {
-    width: ${({ width }: { width?: number }) =>
-      width ? `${width}px` : "100%"};
+    width: 100%;
     overflow-x: scroll;
+  }
+`;
+
+const NFTList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+  margin: 96px 0 0 0;
+  @media ${devices.tablet} {
+    gap: 36px;
   }
 `;
 
@@ -50,6 +60,7 @@ type DropNameProps = {
     likes: number;
     rating: number;
     price: string;
+    logoNft: string;
   }[];
 };
 
@@ -57,19 +68,22 @@ const DropName = (props: DropNameProps) => {
   const isMobile = checkMobileBrowser();
   const { title, description, steps, nfts } = props;
   const Ref = useRef<HTMLDivElement>(null);
+
   return (
     <Wrapper ref={Ref}>
       <TextCard title={title} description={description} />
-      {/* <Flex flexDirection="column" gap="96px" margin="96px 0 0 0">
+      <NFTList>
         {nfts.map((el, i) => {
           return isMobile ? (
             <NftCard
               name={el.name}
-              image={el.image}
               likes={el.likes}
               rating={el.rating}
               price={el.price}
               key={el.id}
+              logoNft={el.logoNft}
+              bigButton
+              status={el.dropStatus}
             />
           ) : (
             <BigNftCard
@@ -80,12 +94,10 @@ const DropName = (props: DropNameProps) => {
             />
           );
         })}
-      </Flex> */}
-      <ViewBlock width={Ref?.current?.clientWidth}>
+      </NFTList>
+      <ViewBlock>
         <Steps steps={steps} />
       </ViewBlock>
-
-      {/* <JoinPanel /> */}
     </Wrapper>
   );
 };

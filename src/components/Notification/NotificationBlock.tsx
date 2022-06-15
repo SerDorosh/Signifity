@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Flex } from "../../styled/Flex";
 import Close from "../../assets/icons/closeIcon.svg";
 import { useEffect } from "react";
+import { devices } from "../../constants/mediaConstants";
 
 const NotificationWrapper = styled.div`
   position: fixed;
@@ -14,18 +15,11 @@ const NotificationWrapper = styled.div`
   border-radius: 12px;
   z-index: 1000;
 
-
-  animation-duration: 1s;
-  animation-name: scale;
-
-  @-webkit-keyframes enter {
-    0% {
-      opacity: 0;
-    
-    100% {
-      opacity: 1;
-      
-    }
+  @media ${devices.tablet} {
+    width: auto;
+    top: 64px;
+    left: 8px;
+    right: 8px;
   }
 `;
 

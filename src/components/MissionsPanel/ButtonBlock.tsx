@@ -4,12 +4,21 @@ import Bell from "../../assets/icons/bellIcon.svg";
 import Connect from "../../assets/icons/connectIcon.svg";
 import Share from "../../assets/icons/shareIcon.svg";
 import Dots from "../../assets/icons/dotsIcon.svg";
+import { devices } from "../../constants/mediaConstants";
+import { checkMobileBrowser } from "../../helpers";
 
 const Block = styled.div`
   display: flex;
   filter: drop-shadow(0px 8px 24px rgba(0, 0, 0, 0.08));
   position: relative;
-  z-index: 1000;
+  z-index: 100;
+  @media ${devices.tablet} {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    box-sizing: border-box;
+  }
 `;
 
 const Button = styled(PrimaryButton)`
@@ -21,6 +30,9 @@ const Button = styled(PrimaryButton)`
   background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.primaryColor};
   box-sizing: border-box;
+  @media ${devices.tablet} {
+    margin: 0;
+  }
 `;
 
 const ButtonIcon = styled.div`
@@ -72,25 +84,46 @@ const MenuItem = styled.div`
     red ? theme.colors.red : theme.colors.black};
 `;
 
+type StatusLabelProps = {
+  theme: DefaultTheme;
+  status: string;
+};
+
+const StatusLabel = styled(PrimaryButton)`
+  color: ${({ theme, status }: StatusLabelProps) =>
+    status === "Complete" ? theme.colors.black : theme.colors.primaryColor};
+  background: ${({ theme }) => theme.colors.white};
+  height: 32px;
+  padding: 4px 12px;
+`;
+
 type ButtonBlockProps = {
   showNotification: (value: boolean) => void;
   showMenu: boolean;
+  status?: string;
   setShowMenu: (value: boolean) => void;
 };
 const ButtonBlock = (props: ButtonBlockProps) => {
-  const { showNotification, showMenu, setShowMenu } = props;
+  const isMobile = checkMobileBrowser();
+  const { showNotification, showMenu, setShowMenu, status } = props;
   return (
     <Block>
-      <Button>
+      <Button onClick={() => showNotification(true)}>
         <ButtonIcon image={Connect} />
       </Button>
-      <Button>
-        <ButtonIcon image={Share} />
-      </Button>
-      <Button onClick={() => showNotification(true)}>
-        <ButtonIcon image={Bell} />
-        <ButtonText>Subscribe</ButtonText>
-      </Button>
+
+      {!isMobile && (
+        <Button>
+          <ButtonIcon image={Share} />
+        </Button>
+      )}
+      {status && <StatusLabel status={status}>{status}</StatusLabel>}
+      {!isMobile && (
+        <Button onClick={() => showNotification(true)}>
+          <ButtonIcon image={Bell} />
+          <ButtonText>Subscribe</ButtonText>
+        </Button>
+      )}
       <Button
         onClick={(e) => {
           e.stopPropagation();

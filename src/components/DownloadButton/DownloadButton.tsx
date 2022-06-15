@@ -5,6 +5,7 @@ import Download from "../../assets/icons/downloadIcon.svg";
 import { devices } from "../../constants/mediaConstants";
 
 const Button = styled(PrimaryButton)`
+  height: 80px;
   margin-bottom: 24px;
   padding: 12px 24px 12px 16px;
   background: ${({ theme }) => theme.colors.opacityBlack};

@@ -41,6 +41,16 @@ const MissionsGrid = styled.div`
   grid-gap: 36px;
 `;
 
+const ViewBlock = styled.div`
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @media ${devices.tablet} {
+    width: 100%;
+    overflow-x: scroll;
+  }
+`;
+
 type OtherMissionsProps = {
   missions: any[];
 };
@@ -53,33 +63,35 @@ const OtherMissions = (props: OtherMissionsProps) => {
         <Title>Other Missions</Title>
         <ShowAllButton>Show All</ShowAllButton>
       </CardHeader>
-      <MissionsGrid>
-        {missions.map(
-          (
-            {
-              id,
-              missionName,
-              celebrityName,
-              buttonStatus,
-              goal,
-              currentProgress,
-              image,
-            },
-            i
-          ) => (
-            <MissionCard
-              key={id}
-              missionName={missionName}
-              celebrityName={celebrityName}
-              buttonStatus={buttonStatus}
-              goal={goal}
-              currentProgress={currentProgress}
-              image={image}
-              size="small"
-            />
-          )
-        )}
-      </MissionsGrid>
+      <ViewBlock>
+        <MissionsGrid>
+          {missions.map(
+            (
+              {
+                id,
+                missionName,
+                celebrityName,
+                buttonStatus,
+                goal,
+                currentProgress,
+                image,
+              },
+              i
+            ) => (
+              <MissionCard
+                key={id}
+                missionName={missionName}
+                celebrityName={celebrityName}
+                buttonStatus={buttonStatus}
+                goal={goal}
+                currentProgress={currentProgress}
+                image={image}
+                size="small"
+              />
+            )
+          )}
+        </MissionsGrid>
+      </ViewBlock>
     </Wrapper>
   );
 };

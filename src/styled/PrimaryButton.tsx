@@ -41,6 +41,7 @@ export const PrimaryButton = styled.div`
       ? theme.appTheme.secondaryButtonBackground
       : theme.appTheme.primaryButtonBackground};
   user-select: none;
+  box-sizing: border-box;
 
   :hover {
     ${(props: ButtonStyledProps) => (props.disabled ? "" : `opacity: 0.9`)};

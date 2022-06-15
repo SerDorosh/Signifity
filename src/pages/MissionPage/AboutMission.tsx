@@ -11,6 +11,9 @@ const AboutMissionWrapper = styled.div`
   justify-content: center;
   align-items: flex-start;
   margin: 62px 0 0 0;
+  @media ${devices.tablet} {
+    margin: 0;
+  }
 `;
 
 const ViewBlock = styled.div`

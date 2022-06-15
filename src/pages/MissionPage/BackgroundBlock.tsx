@@ -3,10 +3,11 @@ import AvatarList from "../../components/AvatarList/AvatarList";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import Timer from "../../components/Timer/Timer";
 import { devices } from "../../constants/mediaConstants";
+import { checkMobileBrowser } from "../../helpers";
 import { Flex } from "../../styled/Flex";
 import Layout from "../../styled/Layout";
 import { PrimaryButton } from "../../styled/PrimaryButton";
-
+import ButtonBlock from "../../components/MissionsPanel/ButtonBlock";
 type StatusLabelProps = {
   theme: DefaultTheme;
   status: string;
@@ -18,6 +19,9 @@ const StatusLabel = styled(PrimaryButton)`
   background: ${({ theme }) => theme.colors.white};
   height: 32px;
   margin-bottom: 12px;
+  @media ${devices.tablet} {
+    display: none;
+  }
 `;
 
 const BackgroundWrapper = styled.div`
@@ -34,9 +38,9 @@ const BackgroundWrapper = styled.div`
     props.image
       ? `background-image: url(${props.image})`
       : `background: ${props.theme.colors.gray}`};
-
   @media ${devices.tablet} {
-    display: none;
+    height: 480px;
+    justify-content: space-between;
   }
 `;
 
@@ -44,7 +48,9 @@ const Content = styled(Layout)`
   position: relative;
   max-width: 1440px;
   @media ${devices.tablet} {
-    margin: 24px;
+    width: 100vw;
+    margin: 0 0 60px;
+    padding: 24px;
   }
 `;
 
@@ -55,6 +61,10 @@ const MissionTitle = styled.div`
   font-size: 60px;
   line-height: 72px;
   color: ${({ theme }) => theme.colors.black};
+  @media ${devices.tablet} {
+    font-size: 34px;
+    line-height: 36px;
+  }
 `;
 
 const CelebrityName = styled.div`
@@ -68,6 +78,11 @@ const CelebrityName = styled.div`
 
 const JoinButton = styled(PrimaryButton)`
   margin-right: 24px;
+  @media ${devices.tablet} {
+    margin: 0;
+    height: 48px;
+    grid-area: Join;
+  }
 `;
 
 const GoalBlock = styled.div`
@@ -86,6 +101,48 @@ const GoalBlock = styled.div`
   font-size: 14px;
   line-height: 24px;
   box-sizing: border-box;
+  white-space: nowrap;
+`;
+
+const CelebrityAvatarBlock = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 16px 0 56px;
+  @media ${devices.tablet} {
+    display: none;
+  }
+`;
+
+const ButtonDiv = styled.div`
+  display: flex;
+  align-items: center;
+  @media ${devices.tablet} {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "Timer"
+      "Join";
+    gap: 24px;
+  }
+`;
+
+const Block = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  @media ${devices.tablet} {
+    align-items: center;
+    gap: 24px;
+  }
+`;
+
+const ProgressBlock = styled.div`
+  display: flex;
+  align-items: center;
+  @media ${devices.tablet} {
+    width: 100%;
+  }
 `;
 
 type BackgroundBlockProps = {
@@ -95,34 +152,56 @@ type BackgroundBlockProps = {
   goal: number;
   currentValue: number;
   currency: string;
+  showNotification: (value: boolean) => void;
+  showMenu: boolean;
+  setShowMenu: (value: boolean) => void;
 };
 
 const BackgroundBlock = (props: BackgroundBlockProps) => {
-  const { status, celebrityIcons, dateStart, goal, currency, currentValue } =
-    props;
-
+  const {
+    status,
+    celebrityIcons,
+    dateStart,
+    goal,
+    currency,
+    currentValue,
+    showNotification,
+    showMenu,
+    setShowMenu,
+  } = props;
+  const isMobile = checkMobileBrowser();
   return (
     <BackgroundWrapper>
+      {isMobile && (
+        <ButtonBlock
+          showNotification={showNotification}
+          showMenu={showMenu}
+          setShowMenu={setShowMenu}
+          status={status}
+        />
+      )}
       <Content>
-        <Flex>
-          <StatusLabel status={status}>{status}</StatusLabel>
-        </Flex>
-        <MissionTitle>Mission Title</MissionTitle>
-        <Flex alignItems="center" margin="16px 0 56px">
-          <AvatarList icons={celebrityIcons} howManyShowIcons={2} />
-          <CelebrityName>By Celebrity Name & Fund Name...</CelebrityName>
-        </Flex>
-        {status === "pending" ? (
-          <Flex alignItems="center">
-            <JoinButton>Join to the wait list</JoinButton>
-            <Timer date={dateStart} text="{timer} left" />
+        <Block>
+          <Flex>
+            <StatusLabel status={status}>{status}</StatusLabel>
           </Flex>
-        ) : (
-          <Flex alignItems="center">
-            <ProgressBar goal={goal} currentValue={currentValue} />
-            <GoalBlock>{`${goal} ${currency}`}</GoalBlock>
-          </Flex>
-        )}
+          <MissionTitle>Mission Title</MissionTitle>
+          <CelebrityAvatarBlock>
+            <AvatarList icons={celebrityIcons} howManyShowIcons={2} />
+            <CelebrityName>By Celebrity Name & Fund Name...</CelebrityName>
+          </CelebrityAvatarBlock>
+          {status === "Pending" ? (
+            <ButtonDiv>
+              <JoinButton>Join to the wait list</JoinButton>
+              <Timer date={dateStart} text="{timer} left" />
+            </ButtonDiv>
+          ) : (
+            <ProgressBlock>
+              <ProgressBar goal={goal} currentValue={currentValue} />
+              <GoalBlock>{`${goal} ${currency}`}</GoalBlock>
+            </ProgressBlock>
+          )}
+        </Block>
       </Content>
     </BackgroundWrapper>
   );

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { devices } from "../../constants/mediaConstants";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 
 type TimerWrapperProps = {
@@ -10,6 +11,10 @@ const TimerWrapper = styled(PrimaryButton)<TimerWrapperProps>`
   color: ${({ theme }) => theme.appTheme.secondaryButtonTextColor};
   background: ${({ theme, secondary }) =>
     secondary ? theme.colors.secondaryButtonBackground : theme.colors.white};
+  box-sizing: border-box;
+  @media ${devices.tablet} {
+    height: 40px;
+  }
 `;
 
 const getTimerDate = (date: number) => {
