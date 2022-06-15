@@ -102,6 +102,8 @@ export const MockData = {
         price: "0.019 ETN",
         logoNft:
           "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ali Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ali",
       },
       {
         id: 3,
@@ -223,8 +225,8 @@ export const MockData = {
       dateTime: "22 Aug, 2022 00:00",
     },
   ],
-  thanks: false,
-  missionReport: false,
+  thanks: true,
+  missionReport: true,
   modal: {
     title: "Our congratulations!",
     description:

@@ -27,6 +27,7 @@ const Page = styled.div`
   gap: 96px;
   @media ${devices.tablet} {
     display: grid;
+    gap: 36px;
     grid-template-columns: 100%;
     grid-template-areas:
       "1"
@@ -73,7 +74,7 @@ const PanelBetweenParts = styled.div`
   box-sizing: border-box;
   @media ${devices.tablet} {
     position: static;
-    margin-top: 13px;
+    margin-top: -23px;
   }
 `;
 

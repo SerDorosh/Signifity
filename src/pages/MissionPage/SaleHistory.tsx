@@ -41,6 +41,10 @@ const Title = styled.div`
   font-weight: 700;
   font-size: 34px;
   line-height: 36px;
+  @media ${devices.tablet} {
+    font-size: 20px;
+    line-height: 30px;
+  }
 `;
 
 const ShowAllButton = styled(PrimaryButton)`

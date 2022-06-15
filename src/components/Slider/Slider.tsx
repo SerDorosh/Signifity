@@ -9,6 +9,7 @@ const Wrapper = styled.div`
 
 const SliderWrapper = styled.div`
   display: flex;
+  justify-content: center;
   gap: 16px;
   overflow: hidden;
 `;
@@ -30,7 +31,7 @@ const Button = styled.div`
   transform: translate(-50%, -50%);
 `;
 const LeftArrow = styled.div`
-width: 12px;
+  width: 12px;
   height: 8px;
   background-repeat: no-repeat;
   background-size: cover;

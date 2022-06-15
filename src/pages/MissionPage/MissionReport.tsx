@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Slider from "../../components/Slider/Slider";
-import { Flex } from "../../styled/Flex";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import Article from "../../assets/icons/articleIcon.svg";
 import { devices } from "../../constants/mediaConstants";

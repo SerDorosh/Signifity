@@ -63,6 +63,7 @@ type DropNameProps = {
     rating: number;
     price: string;
     logoNft: string;
+    description?: string;
   }[];
 };
 
@@ -93,6 +94,7 @@ const DropName = (props: DropNameProps) => {
               isEven={i % 2 !== 0}
               dropStatus={el.dropStatus}
               date={el.date}
+              description={el.description}
             />
           );
         })}

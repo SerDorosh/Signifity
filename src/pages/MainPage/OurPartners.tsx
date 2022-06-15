@@ -1,4 +1,4 @@
-import styled, { DefaultTheme } from "styled-components";
+import styled from "styled-components";
 import { devices } from "../../constants/mediaConstants";
 import { Flex } from "../../styled/Flex";
 
@@ -15,7 +15,7 @@ const LogoWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 20px; 
+    grid-gap: 20px;
   }
 `;
 const Title = styled.span`

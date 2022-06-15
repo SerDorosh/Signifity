@@ -8,6 +8,9 @@ const Wrapper = styled.div`
   border-radius: 12px;
   padding: 24px;
   margin: 96px 0;
+  @media ${devices.tablet} {
+    margin: 36px 0;
+  }
 `;
 
 const MagicIcon = styled.div`

@@ -1,10 +1,5 @@
-import styled, { DefaultTheme } from "styled-components";
-import AvatarList from "../../components/AvatarList/AvatarList";
-import ProgressBar from "../../components/ProgressBar/ProgressBar";
-import Timer from "../../components/Timer/Timer";
-import { Flex } from "../../styled/Flex";
+import styled from "styled-components";
 import Layout from "../../styled/Layout";
-import { PrimaryButton } from "../../styled/PrimaryButton";
 import MissionsBlock from "./MissionsBlock";
 import OurCelebrities from "./OurCelebrities";
 import PopularNft from "./PopularNft";

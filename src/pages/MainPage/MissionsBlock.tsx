@@ -4,7 +4,6 @@ import Slider from "../../components/Slider/Slider";
 import { Flex } from "../../styled/Flex";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import { devices } from "../../constants/mediaConstants";
-import { useRef } from "react";
 import ScreenSize from "../../helpers/ScreenSize";
 
 type MissionsProps = {

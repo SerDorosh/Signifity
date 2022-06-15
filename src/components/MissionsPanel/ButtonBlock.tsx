@@ -64,6 +64,10 @@ const DotsMenu = styled.div`
   box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.24);
   border-radius: 12px;
   z-index: 1000;
+  @media ${devices.tablet} {
+    right: 8px;
+    bottom: -96px;
+  }
 `;
 
 type MenuItemProps = {

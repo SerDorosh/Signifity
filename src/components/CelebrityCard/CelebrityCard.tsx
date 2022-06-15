@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { devices } from "../../constants/mediaConstants";
-import { Flex } from "../../styled/Flex";
 
 const Card = styled.div`
   display: flex;

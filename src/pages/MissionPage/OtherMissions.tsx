@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   align-items: center;
   margin: 96px 0;
   @media ${devices.tablet} {
-    display: none;
+    margin: 0;
   }
 `;
 
@@ -26,6 +26,10 @@ const Title = styled.p`
   font-weight: 700;
   font-size: 34px;
   line-height: 36px;
+  @media ${devices.tablet} {
+    font-size: 20px;
+    line-height: 30px;
+  }
 `;
 
 const ShowAllButton = styled(PrimaryButton)`
@@ -39,14 +43,17 @@ const MissionsGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 36px;
+  @media ${devices.tablet} {
+    grid-gap: 24px;
+  }
 `;
 
 const ViewBlock = styled.div`
+  width: 100%;
   &::-webkit-scrollbar {
     display: none;
   }
   @media ${devices.tablet} {
-    width: 100%;
     overflow-x: scroll;
   }
 `;

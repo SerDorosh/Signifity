@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { devices } from "../../constants/mediaConstants";
 
 type ProgressPanelProps = {
   isSmall?: boolean;

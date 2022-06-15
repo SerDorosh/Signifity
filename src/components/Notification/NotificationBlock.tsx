@@ -68,13 +68,13 @@ type NotificationBlockProps = {
 };
 
 const NotificationBlock = (props: NotificationBlockProps) => {
-  const { title, description, isOpen, setIsOpen, otherText } = props;
+  const { title, description, setIsOpen, otherText } = props;
 
   useEffect(() => {
     setTimeout(() => {
       setIsOpen(false);
     }, 3000);
-  }, []);
+  }, [setIsOpen]);
 
   return (
     <NotificationWrapper>
