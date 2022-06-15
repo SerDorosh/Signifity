@@ -101,6 +101,7 @@ projects: [ {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
   ],
   buttonStatus: "Join to the wait List",
+  status:"Pending",
   goal: 100,
   currentProgress: 70,
 },

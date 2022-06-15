@@ -49,6 +49,7 @@ export default function MissionsBlock({ missions }: MissionsProps) {
               missionName,
               celebrityName,
               buttonStatus,
+              status,
               goal,
               currentProgress,
               image,
@@ -64,6 +65,7 @@ export default function MissionsBlock({ missions }: MissionsProps) {
               currentProgress={currentProgress}
               image={image}
               size="big"
+              status={status}
             ></MissionCard>
           )
         )}
@@ -80,6 +82,7 @@ export default function MissionsBlock({ missions }: MissionsProps) {
                 goal,
                 currentProgress,
                 image,
+                status,
               },
               i
             ) => (
@@ -92,6 +95,7 @@ export default function MissionsBlock({ missions }: MissionsProps) {
                 currentProgress={currentProgress}
                 image={image}
                 size="small"
+                status={status}
               ></MissionCard>
             )
           )}

@@ -87,7 +87,7 @@ export default function UnderHeaderMenu({ projects }: UnderHeaderMenuProps) {
         <Title> Your Project(s)</Title>
         <SubTitle>Motivation message</SubTitle>
       </YourProjectsWindow>
-      <Flex alignItems="center" margin="0 0 0 20px" gap="20px">
+      <Flex alignItems="center" margin="0 0 0 20px" gap="10px">
         {projects.length !== 0 &&
           projects.map(
             ({ image, missionName, celebrityName, id }) =>
