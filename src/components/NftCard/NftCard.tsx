@@ -6,9 +6,11 @@ import LikeIcon from "../../assets/icons/like.svg";
 import FireIcon from "../../assets/icons/fireIconNft.svg";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import DoubleImage from "../DoubleImage/DoubleImage";
+import { devices } from "../../constants/mediaConstants";
 
 type NftProps = {
   name: string;
+  logoNft: string;
   image: string[];
   likes: number;
   rating: number;
@@ -17,20 +19,25 @@ type NftProps = {
 
 const Wrapper = styled.div`
   margin-top: 10px;
-  padding: 25px;
-  width: 342px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
+  padding: 15px;
 `;
 const NftImage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
-  padding: 10px;
+  width: 294px;
   height: 330px;
   border-radius: 12px;
-  background: #f4f4f4;
+  background-image: url(${(props: { image: string }) => props.image});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  @media ${devices.mobile} {
+    width: 264px;
+  }
 `;
 const Title = styled.p`
   font-family: ${({ theme }) => theme.fonts.Roboto};
@@ -55,6 +62,7 @@ const QrCodeComponent = styled.div`
   cursor: pointer;
   width: 56px;
   height: 56px;
+  margin: 10px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -62,14 +70,16 @@ const QrCodeComponent = styled.div`
 `;
 const WalletIconComponent = styled.div`
   cursor: pointer;
-  width: 56px;
-  height: 56px;
+  width: 32px;
+  height: 32px;
+  margin: 10px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-image: url(${(props: { image: string }) => props.image});
 `;
 const LikeIconComponent = styled.div`
+  cursor: pointer;
   width: 20px;
   height: 19px;
   background-repeat: no-repeat;
@@ -86,12 +96,15 @@ const FireIconComponent = styled.div`
   background-image: url(${(props: { image: string }) => props.image});
 `;
 const BuyButton = styled(PrimaryButton)`
+  padding: 0;
+  width: 154px;
   height: 40px;
   color: ${({ theme }) => theme.colors.primaryColor};
   background: ${({ theme }) => theme.colors.secondaryPrimary};
 `;
 export default function NftCard({
   name,
+  logoNft,
   image,
   likes,
   rating,
@@ -99,11 +112,11 @@ export default function NftCard({
 }: NftProps) {
   return (
     <Wrapper>
-      <NftImage>
+      <NftImage image={logoNft}>
         <QrCodeComponent image={QrCode} />
         <WalletIconComponent image={WalletNft} />
       </NftImage>
-      <Flex flexDirection="column" gap="25px">
+      <Flex flexDirection="column" gap="15px">
         <Flex justifyContent="space-between" alignItems="center">
           <Title>{name}</Title>
           <Flex alignItems="center" gap="10px">
@@ -116,7 +129,7 @@ export default function NftCard({
           <SpecialText>Legendary</SpecialText>
           <Text> {rating}/1000</Text>
         </Flex>
-        <Flex justifyContent="space-between">
+        <Flex justifyContent="space-between" alignItems="center">
           <BuyButton>Buy {price}</BuyButton>
           <DoubleImage
             firstImage={image[0]}

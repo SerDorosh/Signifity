@@ -1,4 +1,5 @@
 import styled, { DefaultTheme } from "styled-components";
+import { devices } from "../../constants/mediaConstants";
 import { Flex } from "../../styled/Flex";
 
 type OurPartnersProps = {
@@ -7,8 +8,24 @@ type OurPartnersProps = {
 };
 const OurPartnersWrapper = styled.div`
   margin: 100px 50px;
+  @media ${devices.laptop} {
+  margin: 0 30px;
+
+  }
 `;
 
+const LogoWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
+  @media ${devices.mobile} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 20px; 
+  }
+`;
 const Title = styled.span`
   font-family: ${({ theme }) => theme.fonts.Roboto};
   font-style: normal;
@@ -20,11 +37,15 @@ const PartnerWindow = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 226.67px;
+  width: 200px;
   height: 126px;
   font-weight: 700;
   border-radius: 12px;
-  background: ${({ theme }) => theme.colors.gray}; ;
+  background: ${({ theme }) => theme.colors.gray};
+  @media ${devices.mobile} {
+    width: 144px;
+    height: 90px;
+  }
 `;
 
 export default function OurPartners() {
@@ -41,11 +62,11 @@ export default function OurPartners() {
       <Flex margin="10px 0">
         <Title>Our Partners</Title>
       </Flex>
-      <Flex justifyContent="space-around" gap="20px">
+      <LogoWrapper>
         {ourPartners.map(({ id, logo }) => (
           <PartnerWindow key={id + id}>{logo}</PartnerWindow>
         ))}
-      </Flex>
+      </LogoWrapper>
     </OurPartnersWrapper>
   );
 }

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Flex } from "../../styled/Flex";
+import { devices } from "../../constants/mediaConstants";
 
 type ImageProps = {
   image: string;
@@ -18,6 +19,13 @@ const OurCelebrityBlock = styled.div`
   grid-template-columns: 1fr 1fr;
   align-items: ${({ moreThanSix }: BlockProps) =>
     !moreThanSix ? "center" : "start"};
+  @media ${devices.tablet} {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    overflow: scroll;
+    margin: 30px;
+  }
 `;
 const Title = styled.p`
   font-family: ${({ theme }) => theme.fonts.Roboto};
@@ -26,6 +34,9 @@ const Title = styled.p`
   font-size: 60px;
   margin: 0;
   color: ${({ theme }) => theme.colors.black};
+  @media ${devices.tablet} {
+    font-size: 34px;
+  }
 `;
 const SubTitle = styled.p`
   font-family: ${({ theme }) => theme.fonts.Roboto};
@@ -34,11 +45,28 @@ const SubTitle = styled.p`
   font-size: 24px;
   margin: 10px 0;
   color: ${({ theme }) => theme.colors.lightBlack};
+  @media ${devices.tablet} {
+    font-size: 16px;
+  }
 `;
 
 const UnderAvatarText = styled(Title)`
   font-size: ${({ moreThanSix }: BlockProps) =>
     !moreThanSix ? "24px" : "16px"};
+  @media ${devices.tablet} {
+    font-size: 16px;
+  }
+`;
+const AvatarWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  @media ${devices.tablet} {
+    flex-wrap: nowrap;
+    gap: 40px;
+  }
 `;
 const AvatarImage = styled.div`
   position: relative;
@@ -50,6 +78,10 @@ const AvatarImage = styled.div`
   background-position: center;
   border: 4px solid ${({ theme }) => theme.colors.white};
   border-radius: 50%;
+  @media ${devices.laptop} {
+    width: 96px;
+    height: 96px;
+  }
 `;
 
 export default function OurCelebrities({
@@ -66,19 +98,14 @@ export default function OurCelebrities({
         <Title>The celebrity that are alseady with us</Title>
         <SubTitle>Additional text</SubTitle>
       </Flex>
-      <Flex
-        justifyContent="space-around"
-        flexWrap={"wrap"}
-        alignItems="center"
-        gap={20}
-      >
+      <AvatarWrapper>
         {ourCelebrities.map(({ name, image, id }) => (
-          <Flex flexDirection="column" alignItems="center" gap="10px" key={id}>
+          <Flex flexDirection="column" alignItems="center" gap={10} key={id}>
             <AvatarImage size={size} image={image[0]} />
             <UnderAvatarText moreThanSix={moreThanSix}>{name}</UnderAvatarText>
           </Flex>
         ))}
-      </Flex>
+      </AvatarWrapper>
     </OurCelebrityBlock>
   );
 }

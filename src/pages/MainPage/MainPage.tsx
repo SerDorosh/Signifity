@@ -12,6 +12,13 @@ import UnderHeaderMenu from "./UnderHeaderMenu";
 import CompletedMissions from "./CompletedMissions";
 import OurPartners from "./OurPartners";
 import IntroducingSigniftyCoin from "./IntroducingSigniftyCoin";
+import { devices } from "../../constants/mediaConstants";
+
+
+type StatusLabelProps = {
+  theme: DefaultTheme;
+  status: string;
+};
 
 const BackgroundBlock = styled.div`
   width: 100%;
@@ -26,8 +33,18 @@ const BackgroundBlock = styled.div`
     props.image
       ? `background-image: url(${props.image})`
       : `background: ${props.theme.colors.gray}`};
+  @media ${devices.desktop} {
+    overflow: scroll;
+  }
 `;
 
+const StatusLabel = styled(PrimaryButton)`
+  color: ${({ theme, status }: StatusLabelProps) =>
+    status === "Complete" ? theme.colors.black : theme.colors.primaryColor};
+  background: ${({ theme }) => theme.colors.white};
+  height: 32px;
+  margin-bottom: 12px;
+`;
 const Content = styled(Layout)`
   max-width: 1440px;
 `;
@@ -59,7 +76,8 @@ const GoalBlock = styled.div`
   justify-content: center;
   align-items: center;
   height: 36px;
-  margin-left: 24px;
+  width: 130px;
+  margin-left: 20px;
   padding: 8px 16px;
   color: ${({ theme }) => theme.colors.primaryColor};
   background: ${({ theme }) => theme.colors.white};
@@ -98,38 +116,38 @@ export default function MainPage() {
         "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
       ],
     },
-    5: {
-      id: 5,
-      name: "Sebastian Bravo",
-      image: [
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-      ],
-    },
-    4: {
-      id: 4,
-      name: "Sebastian Bravo",
-      image: [
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-      ],
-    },
-    6: {
-      id: 6,
-      name: "Sebastian Bravo",
-      image: [
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-      ],
-    },
-    7: {
-      id: 7,
-      name: "Sebastian Bravo",
-      image: [
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-      ],
-    },
+    // 5: {
+    //   id: 5,
+    //   name: "Sebastian Bravo",
+    //   image: [
+    //     "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+    //     "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+    //   ],
+    // },
+    // 4: {
+    //   id: 4,
+    //   name: "Sebastian Bravo",
+    //   image: [
+    //     "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+    //     "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+    //   ],
+    // },
+    // 6: {
+    //   id: 6,
+    //   name: "Sebastian Bravo",
+    //   image: [
+    //     "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+    //     "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+    //   ],
+    // },
+    // 7: {
+    //   id: 7,
+    //   name: "Sebastian Bravo",
+    //   image: [
+    //     "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+    //     "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+    //   ],
+    // },
   };
   const ourCelebrities = Object.values(mockOurCelebrities);
 
@@ -182,54 +200,6 @@ export default function MainPage() {
       goal: 100,
       currentProgress: 70,
     },
-    E: {
-      id: 4,
-      missionName: "MissionTitle253",
-      celebrityName: "Celebrity Name2",
-      image: [
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-      ],
-      buttonStatus: "Presale",
-      goal: 100,
-      currentProgress: 100,
-    },
-    F: {
-      id: 5,
-      missionName: "MissionTitle253",
-      celebrityName: "Celebrity Name2",
-      image: [
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-      ],
-      buttonStatus: "Presale",
-      goal: 100,
-      currentProgress: 100,
-    },
-    G: {
-      id: 6,
-      missionName: "MissionTitle253",
-      celebrityName: "Celebrity Name2",
-      image: [
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-      ],
-      buttonStatus: "Presale",
-      goal: 100,
-      currentProgress: 100,
-    },
-    H: {
-      id: 7,
-      missionName: "MissionTitle253",
-      celebrityName: "Celebrity Name2",
-      image: [
-        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
-      ],
-      buttonStatus: "Presale",
-      goal: 100,
-      currentProgress: 100,
-    },
     i: {
       id: 8,
       missionName: "MissionTitle253",
@@ -245,14 +215,79 @@ export default function MainPage() {
     },
   };
   const projects = Object.values(mockProjects);
-  const mockNft = {
-    1: {
-      id: 1,
-      name: "NFT 1",
+  const doneProjects = [
+    {
+      id: 7,
+      missionName: "MissionTitle253",
+      celebrityName: "Celebrity Name2",
+      image: [
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+      ],
+      buttonStatus: "Presale",
+      goal: 100,
+      currentProgress: 100,
+    },
+    {
+      id: 5,
+      missionName: "MissionTitle2",
+      celebrityName: "Celebrity Name2",
       image: [
         "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
         "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
       ],
+      buttonStatus: "Presale",
+      goal: 100,
+      currentProgress: 100,
+    },
+    {
+      id: 6,
+      missionName: "MissionTitle3",
+      celebrityName: "Celebrity Name2",
+      image: [
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      ],
+      buttonStatus: "Presale",
+      goal: 100,
+      currentProgress: 100,
+    },
+    {
+      id: 4,
+      missionName: "MissionTitle4",
+      celebrityName: "Celebrity Name2",
+      image: [
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      ],
+      buttonStatus: "Presale",
+      goal: 100,
+      currentProgress: 100,
+    },
+    {
+      id: 2424,
+      missionName: "MissionTitle5",
+      celebrityName: "Celebrity Name2",
+      image: [
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      ],
+      buttonStatus: "Presale",
+      goal: 100,
+      currentProgress: 100,
+    },
+  ];
+  const mockNft = {
+    1: {
+      id: 1,
+      name: "NFT 1",
+      logoNft:
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      image: [
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      ],
+
       likes: 1,
       rating: 1000,
       price: "0.019 ETN",
@@ -260,10 +295,13 @@ export default function MainPage() {
     2: {
       id: 2,
       name: "NFT 12",
+      logoNft:
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
       image: [
         "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
         "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
       ],
+
       likes: 225,
       rating: 1000,
       price: "0.002 ETN",
@@ -271,9 +309,11 @@ export default function MainPage() {
     3: {
       id: 3,
       name: "NFT 13",
+      logoNft:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
       image: [
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
       ],
       likes: 2512,
       rating: 1000,
@@ -281,11 +321,42 @@ export default function MainPage() {
     },
     4: {
       id: 4,
-      name: "NFT 2214",
+      name: "NFT 14",
+      logoNft:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
       image: [
         "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
       ],
+
+      likes: 225,
+      rating: 1000,
+      price: "0.0055 ETN",
+    },
+    5: {
+      id: 5,
+      name: "NFT 2215",
+      logoNft:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+      image: [
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      ],
+
+      likes: 225,
+      rating: 1000,
+      price: "0.0055 ETN",
+    },
+    6: {
+      id: 6,
+      name: "NFT 2214",
+      logoNft:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+      image: [
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      ],
+
       likes: 225,
       rating: 1000,
       price: "0.0055 ETN",
@@ -322,6 +393,9 @@ export default function MainPage() {
       <UnderHeaderMenu projects={projects} />
       <BackgroundBlock>
         <Content>
+          <Flex>
+            <StatusLabel status={status}>{status}</StatusLabel>
+          </Flex>
           <MissionTitle>Mission Title</MissionTitle>
           <Flex alignItems="center" margin="16px 0 56px">
             <AvatarList icons={celebrityIcons} howManyShowIcons={2} />
@@ -343,7 +417,7 @@ export default function MainPage() {
       <MissionsBlock missions={projects} />
       <OurCelebrities ourCelebrities={ourCelebrities} />
       <PopularNft nfts={nfts} />
-      <CompletedMissions missions={projects} />
+      <CompletedMissions missions={doneProjects} />
       <IntroducingSigniftyCoin />
       <OurPartners />
     </>
