@@ -6,18 +6,10 @@ type OurPartnersProps = {
   index: number;
   theme: any;
 };
-const OurPartnersWrapper = styled.div`
-  margin: 100px 50px;
-  @media ${devices.laptop} {
-  margin: 0 30px;
-
-  }
-`;
-
 const LogoWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  gap: 20px;
+  gap: 10px;
   flex-wrap: wrap;
   @media ${devices.mobile} {
     display: grid;
@@ -58,7 +50,7 @@ export default function OurPartners() {
     { id: 6, logo: "Logo" },
   ];
   return (
-    <OurPartnersWrapper>
+    <>
       <Flex margin="10px 0">
         <Title>Our Partners</Title>
       </Flex>
@@ -67,6 +59,6 @@ export default function OurPartners() {
           <PartnerWindow key={id + id}>{logo}</PartnerWindow>
         ))}
       </LogoWrapper>
-    </OurPartnersWrapper>
+    </>
   );
 }

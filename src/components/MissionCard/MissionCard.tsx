@@ -1,9 +1,10 @@
 import styled, { DefaultTheme } from "styled-components";
 import { Flex } from "../../styled/Flex";
 import { PrimaryButton } from "../../styled/PrimaryButton";
-import AvatarList from "../AvatarList/AvatarList";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { devices } from "../../constants/mediaConstants";
+import DoubleImage from "../DoubleImage/DoubleImage";
+import ScreenSize from "../../helpers/ScreenSize";
 
 type MissionsProps = {
   missionName: string;
@@ -20,20 +21,17 @@ type ImageProps = {
 };
 
 const CardWrapper = styled.div`
-  width: ${(props: { size: string | undefined }) =>
-    props.size === "small" ? "407px" : "660px"};
-  height: ${(props: { size: string | undefined }) =>
-    props.size === "small" ? "342px" : "454px"};
+  width: 100%;
+  min-height: ${(props: { size: string | undefined }) =>
+    props.size === "small" ? "342px" : "550px"};
   background: ${({ theme }) => theme.colors.gray};
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 15px;
-  @media ${devices.mobile} {
+  box-sizing: border-box;
+  @media ${devices.tablet} {
     padding: 5px;
-    width: ${(props: { size: string | undefined }) =>
-      props.size === "small" ? "230px" : "312px"};
     height: ${(props: { size: string | undefined }) =>
       props.size === "small" ? "280px" : "454px"};
   }
@@ -59,6 +57,7 @@ const TopText = styled.p`
   line-height: 24px;
   text-align: right;
   letter-spacing: 0.1px;
+  white-space: nowrap;
   color: ${({ theme }) => theme.colors.black};
 `;
 
@@ -77,7 +76,7 @@ const BottomSubtitle = styled.span`
   font-size: 16px;
   color: ${({ theme }) => theme.colors.lightBlack};
   margin: 10px 0 15px;
-  @media ${devices.mobile} {
+  @media ${devices.tablet} {
     margin: 5px 0 15px;
   }
 `;
@@ -86,16 +85,15 @@ const ButtonAndProgressWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  @media ${devices.mobile} {
+  @media ${devices.tablet} {
     flex-direction: column;
     align-items: start;
   }
 `;
 const MissionButton = styled(PrimaryButton)`
-  width: 73px;
   height: 32px;
   font-size: 14px;
-  padding: 0 1px;
+  padding: 0 10px;
 `;
 const DoneButton = styled(PrimaryButton)`
   background: ${({ theme }) => theme.colors.black};
@@ -116,10 +114,17 @@ export default function MissionCard({
   image,
   size,
 }: MissionsProps) {
+  const { isMobile, isTablet } = ScreenSize();
+
   return (
     <CardWrapper size={size}>
-      <Flex justifyContent="space-between">
-        <AvatarList icons={image} howManyShowIcons={2} />
+      <Flex justifyContent="space-between" margin="20px">
+        <DoubleImage
+          size={isMobile || isTablet ? "56px" : "80px"}
+          side="left"
+          firstImage={image[0]}
+          secondImage={image[1]}
+        ></DoubleImage>
         {goal !== currentProgress && <TopText>12 h ago</TopText>}
       </Flex>
       <Flex flexDirection="column" margin="20px">
@@ -133,8 +138,8 @@ export default function MissionCard({
           )}
           {currentProgress !== goal && (
             <ProgressBar
-            isSmall={true}
-            isHideText={true}
+            isSmall={isMobile || isTablet}
+            isHideText={isMobile || isTablet}
               goal={goal}
               currentValue={currentProgress}
             ></ProgressBar>

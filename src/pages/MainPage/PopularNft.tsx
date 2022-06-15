@@ -9,16 +9,6 @@ type PopularNftProps = {
   nfts: any[];
 };
 
-const Wrapper = styled.div`
-  margin: 50px 50px;
-  @media ${devices.desktop} {
-    overflow: scroll;
-  }
-  @media ${devices.tablet} {
-    margin: 30px;
-  }
-`;
-
 const Title = styled.span`
   font-family: ${({ theme }) => theme.fonts.Roboto};
   font-weight: 700;
@@ -39,7 +29,7 @@ const ShowAllButton = styled(PrimaryButton)`
 
 export default function PopularNft({ nfts }: PopularNftProps) {
   return (
-    <Wrapper>
+    <>
       <Flex justifyContent="space-between" alignItems="center" margin="10px 0">
         <Title>Popular NFT</Title>
         <ShowAllButton>Show All</ShowAllButton>
@@ -57,6 +47,6 @@ export default function PopularNft({ nfts }: PopularNftProps) {
           />
         ))}
       </Slider>
-    </Wrapper>
+    </>
   );
 }
