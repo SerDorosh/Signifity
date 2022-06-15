@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import styled from "styled-components";
 import FundCard from "../../components/FundCard/FundCard";
 import TextCard from "../../components/TextCard/TextCard";
@@ -12,14 +13,22 @@ const AboutMissionWrapper = styled.div`
   margin: 62px 0 0 0;
 `;
 
+const ViewBlock = styled.div`
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @media ${devices.tablet} {
+    width: ${({ width }: { width?: number }) =>
+      width ? `${width}px` : "100%"};
+    overflow-x: scroll;
+  }
+`;
+
 const FundsBlock = styled.div`
   display: flex;
-  width: 100%;
+  gap: 24px;
   margin: 96px 0 0 0;
-  @media ${devices.tablet} {
-    width: 100px;
-    overflow-x: auto;
-  }
+  width: fit-content;
 `;
 
 type AboutMissionProps = {
@@ -34,14 +43,22 @@ type AboutMissionProps = {
 
 const AboutMission = (props: AboutMissionProps) => {
   const { title, description, funds } = props;
+  const AboutMissionRef = useRef<HTMLDivElement>(null);
   return (
-    <AboutMissionWrapper>
+    <AboutMissionWrapper ref={AboutMissionRef}>
       <TextCard title={title} description={description} file />
-      <FundsBlock>
-        {funds.map((el, i) => (
-          <FundCard key={i} name={el.name} title={el.title} image={el.image} />
-        ))}
-      </FundsBlock>
+      <ViewBlock width={AboutMissionRef?.current?.clientWidth}>
+        <FundsBlock>
+          {funds.map((el, i) => (
+            <FundCard
+              key={i}
+              name={el.name}
+              title={el.title}
+              image={el.image}
+            />
+          ))}
+        </FundsBlock>
+      </ViewBlock>
     </AboutMissionWrapper>
   );
 };

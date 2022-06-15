@@ -1,11 +1,17 @@
 import styled from "styled-components";
 import { Step } from "./Step";
 import { Line } from "./Line";
+import { devices } from "../../constants/mediaConstants";
 
 const StepsWrap = styled.div`
   display: flex;
   align-items: center;
-  margin: 160px 0 0 0;
+  padding: 160px 0 0 0;
+  @media ${devices.tablet} {
+    width: ${({ width }: { width?: number }) =>
+      width ? `${width}px` : "100%"};
+    overflow-x: scroll;
+  }
 `;
 const StepWrap = styled.div`
   display: flex;

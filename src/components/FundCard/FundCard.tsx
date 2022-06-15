@@ -1,12 +1,19 @@
 import styled from "styled-components";
 import { Flex } from "../../styled/Flex";
 import DefaultIcon from "../../assets/icons/defaultFundIcon.svg";
+import { devices } from "../../constants/mediaConstants";
 
 const Card = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 242px;
+  width: 217px;
+  @media ${devices.tablet} {
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    :last-child {
+      border-right: 0;
+    }
+  }
 `;
 
 const FondIcon = styled.div`

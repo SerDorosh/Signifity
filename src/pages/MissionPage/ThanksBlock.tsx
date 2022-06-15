@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Flex } from "../../styled/Flex";
 import ThanksIcon from "../../assets/icons/thanksIcon.svg";
+import { devices } from "../../constants/mediaConstants";
 
 const Wrapper = styled.div`
   background: rgba(0, 0, 0, 0.04);
@@ -16,6 +17,10 @@ const MagicIcon = styled.div`
   background-size: cover;
   background-position: center;
   background-image: url(${(props: { image: string }) => props.image});
+  @media ${devices.tablet} {
+    width: 54px;
+    height: 35px;
+  }
 `;
 
 const Title = styled.div`
@@ -25,6 +30,10 @@ const Title = styled.div`
   font-size: 34px;
   line-height: 36px;
   color: ${({ theme }) => theme.colors.black};
+  @media ${devices.tablet} {
+    font-size: 20px;
+    line-height: 26px;
+  }
 `;
 
 const Description = styled.div`
@@ -34,6 +43,10 @@ const Description = styled.div`
   font-size: 20px;
   line-height: 30px;
   color: ${({ theme }) => theme.colors.lightBlack};
+  @media ${devices.tablet} {
+    font-size: 16px;
+    line-height: 24px;
+  }
 `;
 
 const ThanksBlock = () => {

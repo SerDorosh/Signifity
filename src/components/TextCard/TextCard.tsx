@@ -7,6 +7,7 @@ import DownloadButton from "../DownloadButton/DownloadButton";
 const Card = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const Title = styled.div`
@@ -69,6 +70,10 @@ const MoreOrLessButton = styled.div`
   cursor: pointer;
   :hover {
     text-decoration: underline;
+  }
+  @media ${devices.tablet} {
+    font-size: 16px;
+    line-height: 24px;
   }
 `;
 

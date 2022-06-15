@@ -9,6 +9,9 @@ const Button = styled(PrimaryButton)`
   padding: 12px 24px 12px 16px;
   background: ${({ theme }) => theme.colors.opacityBlack};
   color: ${({ theme }) => theme.colors.primaryColor};
+  @media ${devices.tablet} {
+    width: 100%;
+  }
 `;
 
 const IconBlock = styled.div`
@@ -28,6 +31,7 @@ const IconBlock = styled.div`
 type IconProps = {
   image: string;
   size: string;
+  mobileSize: string;
 };
 
 const Icon = styled.div`
@@ -38,6 +42,8 @@ const Icon = styled.div`
   background-position: center;
   background-image: url(${(props: IconProps) => props.image});
   @media ${devices.tablet} {
+    width: ${(props: IconProps) => props.mobileSize}px;
+    height: ${(props: IconProps) => props.mobileSize}px;
   }
 `;
 
@@ -58,9 +64,9 @@ const DownloadButton = () => {
   return (
     <Button>
       <IconBlock>
-        <Icon image={Document} size={"36"} />
+        <Icon image={Document} size={"36"} mobileSize="20" />
       </IconBlock>
-      <Icon image={Download} size={"24"} />
+      <Icon image={Download} size={"24"} mobileSize="16" />
       <Text>Download document file</Text>
     </Button>
   );

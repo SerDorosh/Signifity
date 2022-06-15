@@ -227,9 +227,43 @@ const MissionPage = () => {
         },
       ],
       nfts: [
-        { id: 1, dropStatus: "dropPending", date: 1664625080000 },
-        { id: 2, dropStatus: "dropStart" },
-        { id: 3, dropStatus: "notForSale" },
+        {
+          id: 1,
+          dropStatus: "dropPending",
+          date: 1664625080000,
+          name: "NFT 1",
+          image: [
+            "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+            "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+          ],
+          likes: 1,
+          rating: 1000,
+          price: "0.019 ETN",
+        },
+        {
+          id: 2,
+          dropStatus: "dropStart",
+          name: "NFT 1",
+          image: [
+            "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+            "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+          ],
+          likes: 1,
+          rating: 1000,
+          price: "0.019 ETN",
+        },
+        {
+          id: 3,
+          dropStatus: "notForSale",
+          name: "NFT 1",
+          image: [
+            "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+            "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+          ],
+          likes: 1,
+          rating: 1000,
+          price: "0.019 ETN",
+        },
       ],
     },
     otherMissions: [
@@ -336,7 +370,7 @@ const MissionPage = () => {
         dateTime: "22 Aug, 2022 00:00",
       },
     ],
-    thanks: true,
+    thanks: false,
     missionReport: false,
     modal: {
       title: "Our congratulations!",

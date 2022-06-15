@@ -1,14 +1,17 @@
+import { useRef } from "react";
 import styled from "styled-components";
+import SaleHistoryCard from "../../components/SaleHistoryCard/SaleHistoryCard";
 import { Table } from "../../components/Table/Table";
 import { devices } from "../../constants/mediaConstants";
+import { Flex } from "../../styled/Flex";
 import Layout from "../../styled/Layout";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 
 const Wrapper = styled.div`
   width: 100%;
+  padding-bottom: 36px;
   background: ${({ theme }) => theme.colors.gray};
   @media ${devices.tablet} {
-    display: none;
   }
 `;
 
@@ -19,6 +22,7 @@ const Content = styled(Layout)`
   max-width: 1440px;
   @media ${devices.tablet} {
     max-width: 720px;
+    margin: 24px;
   }
 `;
 
@@ -45,20 +49,65 @@ const ShowAllButton = styled(PrimaryButton)`
   background: ${({ theme }) => theme.colors.secondaryPrimary};
 `;
 
+const ViewBlock = styled.div`
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @media ${devices.tablet} {
+    width: ${({ width }: { width?: number }) =>
+      width ? `${width}px` : "100%"};
+    overflow-x: scroll;
+  }
+`;
+
+type Data = {
+  id: number;
+  nft: {
+    name: string;
+    image: string;
+  };
+  buyer: {
+    avatar: string;
+    name: string;
+  };
+  salePrice: string;
+  amount: number;
+  dateTime: string;
+};
+
 type SaleHistoryProps = {
-  tableData: any;
+  tableData: Data[];
 };
 
 const SaleHistory = (props: SaleHistoryProps) => {
   const { tableData } = props;
+  const Ref = useRef<HTMLDivElement>(null);
   return (
     <Wrapper>
       <Content>
-        <CardHeader>
+        <CardHeader ref={Ref}>
           <Title>Sale History</Title>
           <ShowAllButton>Show All</ShowAllButton>
         </CardHeader>
-        <Table data={tableData} />
+        {Ref && Ref.current && Ref.current.clientWidth > 720 ? (
+          <Table data={tableData} />
+        ) : (
+          <ViewBlock width={Ref?.current?.clientWidth}>
+            <Flex width="fit-content" gap="10px">
+              {tableData.map((el, i) => (
+                <SaleHistoryCard
+                  key={el.id}
+                  image={el.nft.image}
+                  name={el.nft.name}
+                  buyerName={el.buyer.name}
+                  salePrice={el.salePrice}
+                  amount={el.amount}
+                  dateTime={el.dateTime}
+                />
+              ))}
+            </Flex>
+          </ViewBlock>
+        )}
       </Content>
     </Wrapper>
   );

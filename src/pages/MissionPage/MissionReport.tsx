@@ -3,6 +3,7 @@ import Slider from "../../components/Slider/Slider";
 import { Flex } from "../../styled/Flex";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import Article from "../../assets/icons/articleIcon.svg";
+import { devices } from "../../constants/mediaConstants";
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,6 +31,10 @@ const Title = styled.div`
   font-size: 60px;
   line-height: 72px;
   color: ${({ theme }) => theme.colors.black};
+  @media ${devices.tablet} {
+    font-size: 34px;
+    line-height: 36px;
+  }
 `;
 
 const ButtonIcon = styled.div`
@@ -56,13 +61,34 @@ const Text = styled.div`
   font-weight: 700;
   font-size: 20px;
   line-height: 30px;
+  @media ${devices.tablet} {
+    font-size: 16px;
+    line-height: 24px;
+  }
+`;
+
+const ArticleBlock = styled.div`
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  @media ${devices.mobile} {
+    flex-direction: column;
+    width: 100%;
+  }
+`;
+
+const Button = styled(PrimaryButton)`
+  box-sizing: border-box;
+  @media ${devices.mobile} {
+    width: 100%;
+  }
 `;
 
 const MissionReport = () => {
   return (
     <Wrapper>
       <Title>Mission Report</Title>
-      <Slider howToShow={3}>
+      <Slider howToShow={1}>
         <MediaContentBlock>1</MediaContentBlock>
         <MediaContentBlock>2</MediaContentBlock>
         <MediaContentBlock>3</MediaContentBlock>
@@ -70,13 +96,13 @@ const MissionReport = () => {
         <MediaContentBlock>5</MediaContentBlock>
         <MediaContentBlock>6</MediaContentBlock>
       </Slider>
-      <Flex gap="24px" alignItems="center;">
-        <PrimaryButton secondary>
+      <ArticleBlock>
+        <Button secondary>
           <ButtonText>Go to article</ButtonText>
           <ButtonIcon image={Article} />
-        </PrimaryButton>
+        </Button>
         <Text>Read more about this mission in our blog</Text>
-      </Flex>
+      </ArticleBlock>
     </Wrapper>
   );
 };
