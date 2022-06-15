@@ -1,4 +1,5 @@
 export const MockData = {
+  name:"Mission Title",
   dateStart: 1664625080000,
   celebrityIcons: [
     "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
@@ -130,7 +131,7 @@ export const MockData = {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
       ],
-      buttonStatus: "Presale",
+      status: "Presale",
       goal: 100,
       currentProgress: 10,
     },
@@ -142,7 +143,7 @@ export const MockData = {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
       ],
-      buttonStatus: "Ongoing",
+      status: "Ongoing",
       goal: 100,
       currentProgress: 40,
     },
@@ -154,7 +155,7 @@ export const MockData = {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
       ],
-      buttonStatus: "Drop",
+      status: "Drop",
       goal: 100,
       currentProgress: 70,
     },

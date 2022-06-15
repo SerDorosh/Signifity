@@ -4,6 +4,7 @@ import Slider from "../../components/Slider/Slider";
 import { Flex } from "../../styled/Flex";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import { devices } from "../../constants/mediaConstants";
+import ScreenSize from "../../helpers/ScreenSize";
 
 type MissionsProps = {
   missions: any[];
@@ -11,6 +12,9 @@ type MissionsProps = {
 
 const CompletedMissionsWrapper = styled.div`
   margin: 120px 0;
+  @media ${devices.tablet} {
+    margin: 72px 0 136px 0;
+  }
 `;
 const Title = styled.div`
   font-family: ${({ theme }) => theme.fonts.Roboto};
@@ -33,13 +37,15 @@ const ShowAllButton = styled(PrimaryButton)`
 `;
 
 export default function CompletedMissions({ missions }: MissionsProps) {
+  const { isMobile } = ScreenSize();
+
   return (
     <CompletedMissionsWrapper>
       <Flex justifyContent="space-between" alignItems="center" margin="10px 0">
         <Title>Completed Missions</Title>
         <ShowAllButton>Show All</ShowAllButton>
       </Flex>
-      <Slider howToShow={4}>
+      <Slider withoutButton={isMobile} howToShow={4}>
         {missions.map(
           ({
             id,
@@ -47,7 +53,7 @@ export default function CompletedMissions({ missions }: MissionsProps) {
             celebrityName,
             image,
             currentProgress,
-            buttonStatus,
+            status,
             goal,
           }) => (
             <MissionCard
@@ -56,7 +62,7 @@ export default function CompletedMissions({ missions }: MissionsProps) {
               celebrityName={celebrityName}
               image={image}
               currentProgress={currentProgress}
-              buttonStatus={buttonStatus}
+              status={status}
               goal={goal}
               size="small"
             />

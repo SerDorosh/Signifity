@@ -24,6 +24,7 @@ const OurCelebrityBlock = styled.div`
     flex-direction: column;
     align-items: start;
     overflow: scroll;
+    margin: 72px 0;
   }
 `;
 const Title = styled.p`

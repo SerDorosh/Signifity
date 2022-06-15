@@ -5,6 +5,7 @@ import { Flex } from "../../styled/Flex";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import { devices } from "../../constants/mediaConstants";
 import ScreenSize from "../../helpers/ScreenSize";
+import MobileMissionCard from "../../components/MissionCard/MobileMissionCard";
 
 type MissionsProps = {
   missions: any[];
@@ -48,56 +49,79 @@ export default function MissionsBlock({ missions }: MissionsProps) {
               id,
               missionName,
               celebrityName,
-              buttonStatus,
               status,
               goal,
               currentProgress,
               image,
             },
             i
-          ) => (
-            <MissionCard
-              key={id + i}
-              missionName={missionName}
-              celebrityName={celebrityName}
-              buttonStatus={buttonStatus}
-              goal={goal}
-              currentProgress={currentProgress}
-              image={image}
-              size="big"
-              status={status}
-            ></MissionCard>
-          )
+          ) =>
+            isMobile && status === "TimerFinished" ? (
+              <MobileMissionCard
+                key={id + i}
+                missionName={missionName}
+                celebrityName={celebrityName}
+                goal={goal}
+                currentProgress={currentProgress}
+                image={image}
+                size="big"
+                status={status}
+              ></MobileMissionCard>
+            ) : (
+              <MissionCard
+                key={id + i}
+                missionName={missionName}
+                celebrityName={celebrityName}
+                goal={goal}
+                currentProgress={currentProgress}
+                image={image}
+                size="big"
+                status={status}
+              ></MissionCard>
+            )
         )}
       </Slider>
       <SmallMissionsSliderWrapper>
-        <Slider howToShow={!isMobile || !isTablet ? 3 : 2}>
+        <Slider
+          withoutButton={isMobile}
+          howToShow={isMobile || isTablet ? 2 : 3}
+        >
           {missions.map(
             (
               {
                 id,
                 missionName,
                 celebrityName,
-                buttonStatus,
                 goal,
                 currentProgress,
                 image,
                 status,
               },
               i
-            ) => (
-              <MissionCard
-                key={id + i}
-                missionName={missionName}
-                celebrityName={celebrityName}
-                buttonStatus={buttonStatus}
-                goal={goal}
-                currentProgress={currentProgress}
-                image={image}
-                size="small"
-                status={status}
-              ></MissionCard>
-            )
+            ) =>
+              isMobile && status === "TimerFinished" ? (
+                <MobileMissionCard
+                  key={id + i}
+                  missionName={missionName}
+                  celebrityName={celebrityName}
+                  goal={goal}
+                  currentProgress={currentProgress}
+                  image={image}
+                  size="small"
+                  status={status}
+                ></MobileMissionCard>
+              ) : (
+                <MissionCard
+                  key={id + i}
+                  missionName={missionName}
+                  celebrityName={celebrityName}
+                  goal={goal}
+                  currentProgress={currentProgress}
+                  image={image}
+                  size="small"
+                  status={status}
+                ></MissionCard>
+              )
           )}
         </Slider>
       </SmallMissionsSliderWrapper>

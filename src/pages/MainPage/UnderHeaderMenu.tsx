@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import DoubleImage from "../../components/DoubleImage/DoubleImage";
-import { Flex } from "../../styled/Flex";
 import { devices } from "../../constants/mediaConstants";
+import Slider from "../../components/Slider/Slider";
 
 type UnderHeaderMenuProps = {
   projects: any[];
@@ -10,10 +10,10 @@ type UnderHeaderMenuProps = {
 const Wrapper = styled.div`
   display: flex;
   justify-content: start;
-  padding:10px;
+  padding: 10px;
   @media ${devices.desktop} {
-    overflow-x: scroll;
     overflow-wrap: wrap;
+    overflow: scroll;
   }
 `;
 
@@ -82,12 +82,12 @@ const Ellipse = styled.div`
 export default function UnderHeaderMenu({ projects }: UnderHeaderMenuProps) {
   return (
     <Wrapper>
-      <YourProjectsWindow>
-        <NumberOfProjects>{projects.length}</NumberOfProjects>
-        <Title> Your Project(s)</Title>
-        <SubTitle>Motivation message</SubTitle>
-      </YourProjectsWindow>
-      <Flex alignItems="center" margin="0 0 0 20px" gap="10px">
+      <Slider withoutButton={true} howToShow={5}>
+        <YourProjectsWindow>
+          <NumberOfProjects>{projects.length}</NumberOfProjects>
+          <Title> Your Project(s)</Title>
+          <SubTitle>Motivation message</SubTitle>
+        </YourProjectsWindow>
         {projects.length !== 0 &&
           projects.map(
             ({ image, missionName, celebrityName, id }) =>
@@ -111,7 +111,7 @@ export default function UnderHeaderMenu({ projects }: UnderHeaderMenuProps) {
         {projects.length < 3 && <Ellipse />}
         {projects.length < 2 && <Ellipse />}
         {projects.length < 1 && <Ellipse />}
-      </Flex>
+      </Slider>
     </Wrapper>
   );
 }

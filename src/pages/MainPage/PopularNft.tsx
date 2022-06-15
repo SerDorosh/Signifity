@@ -4,6 +4,7 @@ import Slider from "../../components/Slider/Slider";
 import { Flex } from "../../styled/Flex";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import { devices } from "../../constants/mediaConstants";
+import ScreenSize from "../../helpers/ScreenSize";
 
 type PopularNftProps = {
   nfts: any[];
@@ -28,13 +29,14 @@ const ShowAllButton = styled(PrimaryButton)`
 `;
 
 export default function PopularNft({ nfts }: PopularNftProps) {
+  const { isMobile } = ScreenSize();
   return (
     <>
       <Flex justifyContent="space-between" alignItems="center" margin="10px 0">
         <Title>Popular NFT</Title>
         <ShowAllButton>Show All</ShowAllButton>
       </Flex>
-      <Slider howToShow={4}>
+      <Slider withoutButton={isMobile} howToShow={4}>
         {nfts.map(({ id, name, logoNft, image, likes, rating, price }) => (
           <NftCard
             name={name}
