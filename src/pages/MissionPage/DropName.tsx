@@ -53,6 +53,7 @@ type DropNameProps = {
   title: string;
   description: string;
   steps: StepProps[];
+  showNFTBlock: boolean;
   nfts: {
     id: number;
     dropStatus: string;
@@ -69,36 +70,38 @@ type DropNameProps = {
 
 const DropName = (props: DropNameProps) => {
   const isMobile = checkMobileBrowser();
-  const { title, description, steps, nfts } = props;
+  const { title, description, steps, nfts, showNFTBlock } = props;
   const Ref = useRef<HTMLDivElement>(null);
 
   return (
     <Wrapper ref={Ref}>
       <TextCard title={title} description={description} />
-      <NFTList>
-        {nfts.map((el, i) => {
-          return isMobile ? (
-            <NftCard
-              name={el.name}
-              likes={el.likes}
-              rating={el.rating}
-              price={el.price}
-              key={el.id}
-              logoNft={el.logoNft}
-              bigButton
-              status={el.dropStatus}
-            />
-          ) : (
-            <BigNftCard
-              key={el.id}
-              isEven={i % 2 !== 0}
-              dropStatus={el.dropStatus}
-              date={el.date}
-              description={el.description}
-            />
-          );
-        })}
-      </NFTList>
+      {showNFTBlock && (
+        <NFTList>
+          {nfts.map((el, i) => {
+            return isMobile ? (
+              <NftCard
+                name={el.name}
+                likes={el.likes}
+                rating={el.rating}
+                price={el.price}
+                key={el.id}
+                logoNft={el.logoNft}
+                bigButton
+                status={el.dropStatus}
+              />
+            ) : (
+              <BigNftCard
+                key={el.id}
+                isEven={i % 2 !== 0}
+                dropStatus={el.dropStatus}
+                date={el.date}
+                description={el.description}
+              />
+            );
+          })}
+        </NFTList>
+      )}
       <ViewBlock>
         <Steps steps={steps} />
       </ViewBlock>

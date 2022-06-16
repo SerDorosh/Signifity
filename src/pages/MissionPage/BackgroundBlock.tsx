@@ -8,6 +8,10 @@ import { Flex } from "../../styled/Flex";
 import Layout from "../../styled/Layout";
 import { PrimaryButton } from "../../styled/PrimaryButton";
 import ButtonBlock from "../../components/MissionsPanel/ButtonBlock";
+import {
+  PREPARING_STATUS,
+  COMPLETED_STATUS,
+} from "../../constants/statusConstants";
 type StatusLabelProps = {
   theme: DefaultTheme;
   status: string;
@@ -15,7 +19,9 @@ type StatusLabelProps = {
 
 const StatusLabel = styled(PrimaryButton)`
   color: ${({ theme, status }: StatusLabelProps) =>
-    status === "Complete" ? theme.colors.black : theme.colors.primaryColor};
+    status === COMPLETED_STATUS
+      ? theme.colors.black
+      : theme.colors.primaryColor};
   background: ${({ theme }) => theme.colors.white};
   height: 32px;
   margin-bottom: 12px;
@@ -196,7 +202,7 @@ const BackgroundBlock = (props: BackgroundBlockProps) => {
             <AvatarList icons={celebrityIcons} howManyShowIcons={2} />
             <CelebrityName>By Celebrity Name & Fund Name...</CelebrityName>
           </CelebrityAvatarBlock>
-          {status === "Pending" ? (
+          {status === PREPARING_STATUS ? (
             <ButtonDiv>
               <JoinButton>Join to the wait list</JoinButton>
               <Timer date={dateStart} text="{timer} left" />

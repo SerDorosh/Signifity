@@ -19,6 +19,7 @@ import DropName from "./DropName";
 import MissionReport from "./MissionReport";
 import { MockData } from "./MockData";
 import OtherMissions from "./OtherMissions";
+import PopularNft from "./PopularNft";
 import SaleHistory from "./SaleHistory";
 import ThanksBlock from "./ThanksBlock";
 
@@ -34,6 +35,8 @@ const Page = styled.div`
       "2"
       "3"
       "4"
+      "5"
+      "6"
       "JoinPanel";
   }
 `;
@@ -109,6 +112,8 @@ const MissionPage = () => {
     thanks,
     missionReport,
     modal,
+    showPopularNFT,
+    nfts,
   } = MockData;
 
   const [showNotification, setShowNotification] = useState(false);
@@ -161,6 +166,7 @@ const MissionPage = () => {
               description={dropName.description}
               steps={dropName.steps}
               nfts={dropName.nfts}
+              showNFTBlock={dropName.showNFTBlock}
             />
           </LeftPart>
           <RightPart>
@@ -175,6 +181,11 @@ const MissionPage = () => {
 
       <JoinPanel showJoin />
 
+      {showPopularNFT && (
+        <Content>
+          <PopularNft nfts={nfts} />
+        </Content>
+      )}
       <SaleHistory tableData={tableData} />
       <Content>
         <OtherMissions missions={otherMissions} />

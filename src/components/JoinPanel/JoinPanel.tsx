@@ -4,6 +4,7 @@ import Bell from "../../assets/icons/bellIcon.svg";
 import Share from "../../assets/icons/shareIcon.svg";
 import { devices } from "../../constants/mediaConstants";
 import { checkMobileBrowser } from "../../helpers";
+import Article from "../../assets/icons/articleIcon.svg";
 
 const Wrapper = styled.div`
   width: fit-content;
@@ -34,6 +35,7 @@ const Button = styled(PrimaryButton)`
   background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.primaryColor};
   box-sizing: border-box;
+  user-select: none;
   @media ${devices.tablet} {
     background: rgba(0, 0, 0, 0.04);
     border-radius: 12px;
@@ -41,6 +43,7 @@ const Button = styled(PrimaryButton)`
 `;
 
 const BellsButton = styled(PrimaryButton)<{ small?: boolean }>`
+  user-select: none;
   display: flex;
   gap: 14px;
   @media ${devices.tablet} {
@@ -49,6 +52,7 @@ const BellsButton = styled(PrimaryButton)<{ small?: boolean }>`
 `;
 
 const JoinButton = styled(PrimaryButton)`
+  user-select: none;
   @media ${devices.tablet} {
     padding: 4px 16px;
   }
@@ -73,11 +77,13 @@ const ButtonText = styled.div`
 
 type JoinPanelProps = {
   showJoin?: boolean;
+  isSubscribe?: boolean;
+  showArticle?: boolean;
 };
 
 export const JoinPanel = (props: JoinPanelProps) => {
   const isMobile = checkMobileBrowser();
-  const { showJoin } = props;
+  const { showJoin, isSubscribe, showArticle } = props;
   return (
     <Wrapper>
       <Button>
@@ -86,13 +92,21 @@ export const JoinPanel = (props: JoinPanelProps) => {
       <BellsButton secondary small={isMobile && showJoin}>
         <ButtonIcon image={Bell} />
         {isMobile && showJoin ? null : (
-          <ButtonText>Don't miss Presale</ButtonText>
+          <ButtonText>
+            {isSubscribe ? "Don't miss Presale" : "Subscribe"}
+          </ButtonText>
         )}
       </BellsButton>
       {showJoin && (
         <JoinButton>
           <ButtonText>Join to the wait list</ButtonText>
         </JoinButton>
+      )}
+      {showArticle && (
+        <Button secondary>
+          <ButtonText>Go to article</ButtonText>
+          <ButtonIcon image={Article} />
+        </Button>
       )}
     </Wrapper>
   );

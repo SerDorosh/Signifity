@@ -73,6 +73,7 @@ export const MockData = {
         status: "pending",
       },
     ],
+    showNFTBlock: false,
     nfts: [
       {
         id: 1,
@@ -225,8 +226,66 @@ export const MockData = {
       dateTime: "22 Aug, 2022 00:00",
     },
   ],
-  thanks: true,
-  missionReport: true,
+  thanks: false,
+  missionReport: false,
+  showPopularNFT: true,
+  nfts: [
+    {
+      id: 1,
+      name: "NFT 1",
+      logoNft:
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      image: [
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      ],
+
+      likes: 1,
+      rating: 1000,
+      price: "0.019 ETN",
+    },
+    {
+      id: 2,
+      name: "NFT 12",
+      logoNft:
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      image: [
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      ],
+
+      likes: 225,
+      rating: 1000,
+      price: "0.002 ETN",
+    },
+    {
+      id: 3,
+      name: "NFT 13",
+      logoNft:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+      image: [
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      ],
+      likes: 2512,
+      rating: 1000,
+      price: "0.1 ETN",
+    },
+    {
+      id: 4,
+      name: "NFT 14",
+      logoNft:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLsa2zm7abJ_1YcMA1aSuuc7KM6Og3kBeDg&usqp=CAU",
+      image: [
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+        "https://assets.website-files.com/5ee2a460548fc323155ffd49/5ee3bbd75819c47c0ce5c700_Sid%20Sijbrandij.jpg",
+      ],
+
+      likes: 225,
+      rating: 1000,
+      price: "0.0055 ETN",
+    },
+  ],
   modal: {
     title: "Our congratulations!",
     description:
