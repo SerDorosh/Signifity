@@ -103,8 +103,8 @@ const GoalBlock = styled.div`
   height: 36px;
   margin-left: 24px;
   padding: 8px 16px;
-  color: color: ${({ theme, status }: GoalBlockProps) =>
-    status ? theme.colors.black : theme.colors.primaryColor};;
+  color: ${({ theme, status }: GoalBlockProps) =>
+    status ? theme.colors.black : theme.colors.primaryColor};
   background: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
   font-family: ${({ theme }) => theme.fonts.Roboto};

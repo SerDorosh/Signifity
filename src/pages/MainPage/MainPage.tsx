@@ -12,6 +12,8 @@ import { MainMockData } from "./MainMockData";
 import { MockData } from "../MissionPage/MockData";
 import BackgroundBlock from "../MissionPage/BackgroundBlock";
 import { useState } from "react";
+import MainMobileBackgroundBlock from "./MainMobileBackgroundBlock";
+import ScreenSize from "../../helpers/ScreenSize";
 
 const Content = styled(Layout)`
   max-width: 1440px;
@@ -24,24 +26,41 @@ export default function MainPage() {
   const [showNotification, setShowNotification] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const { celebrities, projects, doneProjects, nfts } = MainMockData;
-  const { dateStart, celebrityIcons, status, goal, currentValue, currency } =
-    MockData;
+  const {
+    dateStart,
+    celebrityIcons,
+    status,
+    goal,
+    currentValue,
+    currency,
+    name,
+  } = MockData;
+
+  const { isMobile, isTablet } = ScreenSize();
   return (
     <>
       <Content>
         <UnderHeaderMenu projects={projects} />
+        {(isTablet || isMobile) && (
+          <MainMobileBackgroundBlock
+            celebrityIcons={celebrityIcons}
+            name={name}
+          />
+        )}
       </Content>
-      <BackgroundBlock
-        status={status}
-        celebrityIcons={celebrityIcons}
-        dateStart={dateStart}
-        goal={goal}
-        currentValue={currentValue}
-        currency={currency}
-        showNotification={setShowNotification}
-        showMenu={showMenu}
-        setShowMenu={setShowMenu}
-      />
+      {!isTablet && !isMobile && (
+        <BackgroundBlock
+          status={status}
+          celebrityIcons={celebrityIcons}
+          dateStart={dateStart}
+          goal={goal}
+          currentValue={currentValue}
+          currency={currency}
+          showNotification={setShowNotification}
+          showMenu={showMenu}
+          setShowMenu={setShowMenu}
+        />
+      )}
       <Content>
         <MissionsBlock missions={projects} />
         <OurCelebrities ourCelebrities={celebrities} />

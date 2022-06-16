@@ -12,8 +12,8 @@ type ImageProps = {
 
 const CardWrapper = styled.div`
   width: 100%;
-  min-height: ${(props: { size: string | undefined }) =>
-    props.size === "small" ? "342px" : "550px"};
+  height: ${(props: { size: string | undefined }) =>
+    props.size === "small" ? "342px" : "454px"};
   background: ${({ theme }) => theme.colors.gray};
   border-radius: 12px;
   display: flex;
@@ -85,12 +85,19 @@ const MissionButton = styled(PrimaryButton)`
   font-size: 14px;
   padding: 0 10px;
 `;
+const TimerMobileButton = styled(MissionButton)`
+  background: ${({ theme }) => theme.colors.secondaryPrimary};
+  color: ${({ theme }) => theme.colors.primaryColor};
+  @media ${devices.mobile} {
+    
+    width: 100%;
+  }
+`;
 const DoneButton = styled(PrimaryButton)`
   background: ${({ theme }) => theme.colors.black};
   font-size: 14px;
-  padding: 0 1px;
   height: 32px;
-  width: 94px;
+
   @media ${devices.tablet} {
     width: 86px;
   }
@@ -98,18 +105,16 @@ const DoneButton = styled(PrimaryButton)`
 type MissionsProps = {
   missionName: string;
   celebrityName: string;
-  buttonStatus: string;
   goal: number;
   currentProgress: number;
   image: string[];
   size: string;
   theme?: DefaultTheme;
-  status?: string;
+  status: string;
 };
 export default function MissionCard({
   missionName,
   celebrityName,
-  buttonStatus,
   goal,
   currentProgress,
   image,
@@ -134,25 +139,38 @@ export default function MissionCard({
         <BottomSubtitle>By {celebrityName}</BottomSubtitle>
 
         <ButtonAndProgressWrapper>
-          {currentProgress !== goal && status !== "Pending" ? (
-            <MissionButton>{buttonStatus}</MissionButton>
-          ) : status === "Pending" ? (
-            <ButtonAndProgressWrapper>
-              <MissionButton>
-                Join to the wait list 00:00:00:00 Left{" "}
-              </MissionButton>
-            </ButtonAndProgressWrapper>
-          ) : (
-            <DoneButton>Completed</DoneButton>
+          {status !== "TimerFinished" &&
+            status !== "Pending" &&
+            status !== "Complete" && (
+              <>
+                <MissionButton>{status}ss</MissionButton>
+                <ProgressBar
+                  isSmall={isMobile || isTablet}
+                  isHideText={isMobile || isTablet}
+                  goal={goal}
+                  currentValue={currentProgress}
+                ></ProgressBar>
+              </>
+            )}
+          {status === "Pending" && (
+            <TimerMobileButton>
+              Join to the wait list 10:20:36:53 Left
+            </TimerMobileButton>
           )}
-          {currentProgress !== goal && status !== "Pending" && (
-            <ProgressBar
-              isSmall={isMobile || isTablet}
-              isHideText={isMobile || isTablet}
-              goal={goal}
-              currentValue={currentProgress}
-            ></ProgressBar>
+          {status === "TimerFinished" && (
+            <>
+              {isMobile ? (
+                <TimerMobileButton>
+                  Join to the wait list 00:00:00:00 Left
+                </TimerMobileButton>
+              ) : (
+                <MissionButton>
+                  Join to the wait list 00:00:00:00 Left
+                </MissionButton>
+              )}
+            </>
           )}
+          {status === "Complete" && <DoneButton>Completed</DoneButton>}
         </ButtonAndProgressWrapper>
       </Flex>
     </CardWrapper>

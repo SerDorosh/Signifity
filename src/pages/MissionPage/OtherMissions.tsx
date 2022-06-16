@@ -78,7 +78,7 @@ const OtherMissions = (props: OtherMissionsProps) => {
                 id,
                 missionName,
                 celebrityName,
-                buttonStatus,
+                status,
                 goal,
                 currentProgress,
                 image,
@@ -89,7 +89,7 @@ const OtherMissions = (props: OtherMissionsProps) => {
                 key={id}
                 missionName={missionName}
                 celebrityName={celebrityName}
-                buttonStatus={buttonStatus}
+                status={status}
                 goal={goal}
                 currentProgress={currentProgress}
                 image={image}

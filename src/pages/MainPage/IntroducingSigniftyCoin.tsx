@@ -5,7 +5,7 @@ import IntroducingImage from "../../assets/image/introducingSigniftyCoin.svg";
 import { devices } from "../../constants/mediaConstants";
 
 const Wrapper = styled.div`
-  margin: 200px 0px;
+  margin: 150px 0px;
   height: 480px;
   border-radius: 12px;
   background: ${({ theme }) => theme.colors.gray};
