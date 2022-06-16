@@ -32,7 +32,7 @@ const NftImage = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
-  width: 294px;
+  width: 280px;
   height: 330px;
   border-radius: 12px;
   background-image: url(${(props: { image: string }) => props.image});

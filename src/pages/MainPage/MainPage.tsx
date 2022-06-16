@@ -18,7 +18,7 @@ import ScreenSize from "../../helpers/ScreenSize";
 const Content = styled(Layout)`
   max-width: 1440px;
   @media ${devices.tablet} {
-    margin: 24px 0 24px 24px;
+    margin: 24px;
   }
 `;
 

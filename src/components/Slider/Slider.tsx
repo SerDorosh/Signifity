@@ -1,6 +1,7 @@
 import { ReactNode, useState } from "react";
 import styled from "styled-components";
 import Arrow from "../../assets/icons/arrow.svg";
+import { devices } from "../../constants/mediaConstants";
 
 const Wrapper = styled.div`
   position: relative;
@@ -37,6 +38,10 @@ const Button = styled.div`
   box-shadow: 0px 12px 12px rgba(0, 0, 0, 0.12);
   border-radius: 50%;
   transform: translate(-50%, -50%);
+  @media ${devices.tablet} {
+    ${(props: { disabled: boolean; left?: boolean }) =>
+      props.left ? "left: 8px" : "right: -48px"};
+  }
 `;
 const LeftArrow = styled.div`
   width: 12px;
